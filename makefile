@@ -1,15 +1,19 @@
+ASM_DIR = src/asm
+C_DIR = src/c
+HEADERS_DIR = src/headers
+BUILD_DIR = build
 
-ASM_FILES = ClickMouse.asm
-C_FILES = main.c
-HEADERS = asmFunctions.h
+ASM_FILES = $(ASM_DIR)/ClickMouse.asm
+C_FILES = $(C_DIR)/main.c
+HEADERS = $(HEADERS_DIR)/asmFunctions.h
 # ====================================================================
 
 ASM_COMPILER = ml64
 C_COMPILER = cl
 LINKER = link
 
-ASM_OBJS = $(ASM_FILES:.asm=.obj)
-C_OBJS   = $(C_FILES:.c=.obj)
+ASM_OBJS = $(ASM_FILES:$(ASM_DIR)/%.asm=$(BUILD_DIR)/%.obj)
+C_OBJS   = $(C_FILES:$(C_DIR)/%.c=$(BUILD_DIR)/%.obj)
 
 # Executable
 TARGET = main.exe
@@ -22,11 +26,11 @@ $(TARGET): $(ASM_OBJS) $(C_OBJS)
 	$(LINKER) $(C_OBJS) $(ASM_OBJS) /OUT:$(TARGET)
 
 # Compile C files
-%.obj: %.c $(HEADERS)
+$(BUILD_DIR)/%.obj: $(C_DIR)/%.c $(HEADERS)
 	$(C_COMPILER) /c /Fo$@ $<
 
 # Compile ASM files
-%.obj: %.asm
+$(BUILD_DIR)/%.obj: $(ASM_DIR)/%.asm
 	$(ASM_COMPILER) /c /Fo$@ $<
 
 # Run the .exe file
