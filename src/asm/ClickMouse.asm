@@ -17,11 +17,11 @@ EXTERN GetProcAddress:QWORD ; gets the address of a function inside that DLL
 
 .code
 
-PROC ClickMouse
+ClickMouse PROC
     PUSH RBX ; got to preserve nonvolatile
 
     ; load user32.dll
-    LEA RCX, [REL dllName] ; RCX pointer to dllName (user32.dll)
+    LEA RCX, [dllName] ; RCX pointer to dllName (user32.dll)
     CALL LoadLibraryA ; returns module handle (hModule) in RAX
     MOV RBX, RAX ; store hModule in RBX
 
