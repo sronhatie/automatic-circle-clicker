@@ -10,3 +10,6 @@ like there are rax(64bit) eax(32bit) R8-R15
 Okay so i could just call windows API like a normal human by doing include in asm BUT wheres the fun in that. i decided to torture myself so ill dynamically locate the functions!!!!  
 basically i have to load the dll(dynamic link library), get the address of SendInput API and call the function pointer. pain all i see is pain and suffering.  
 Just finished adding my first learnt.md entry and gosh. brain fried like an egg.  
+WHY IS CALLING AN API SO DIFFICULT it just feels like magic numbers are everywhere.  
+MAKEFILE is so annoying.  
+

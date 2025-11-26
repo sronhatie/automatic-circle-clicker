@@ -27,7 +27,7 @@ $(TARGET): $(ASM_OBJS) $(C_OBJS)
 
 # Compile C files
 $(BUILD_DIR)/%.obj: $(C_DIR)/%.c $(HEADERS)
-	$(C_COMPILER) /c /Fo$@ $<
+	$(C_COMPILER) /c /I$(HEADERS_DIR) /Fo$@ $<
 
 # Compile ASM files
 $(BUILD_DIR)/%.obj: $(ASM_DIR)/%.asm
