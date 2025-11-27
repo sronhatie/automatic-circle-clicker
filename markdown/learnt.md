@@ -12,4 +12,9 @@ REL(relative addressing) basically tells the computerto use RIP-relative address
 RIP-relative addressing is a memory addressing mode in the x86-64 architecture where the effective address is calculated by adding a signed 32-bit displacement to the address of the next instruction, which is stored in the RIP (Instruction Pointer) register.  
 The primary advantage of RIP-relative addressing is that it enables the creation of position-independent code, which is a security feature that makes it more difficult for attackers to predict the memory layout of a program. This is particularly useful for modern software modules like DLLs or EXEs that contain both code and data  
 In every normal Windows process some DLLs are always loaded like: kernel32.dll ntdll.dll kernelbase.dll ucrtbase.dll apisetschema.dll AND your exe!!!  
-
+ML64 - for asm   
+CL - for C  
+add /c so u only get .obj files  
+add /I<directory> if the header is at a different location (no space, very important)  
+add /Fo<directory> to make obj files go to a certain directory (again no space)  
+link - to link obj files  
