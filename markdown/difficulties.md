@@ -12,4 +12,6 @@ basically i have to load the dll(dynamic link library), get the address of SendI
 Just finished adding my first learnt.md entry and gosh. brain fried like an egg.  
 WHY IS CALLING AN API SO DIFFICULT it just feels like magic numbers are everywhere.  
 MAKEFILE is so annoying.  
+OKAY so i realized that im too dependent on AI and that from this point onwards im not going to use any AI code whatsoever. Like i want to learn as much as I can and with AI in the way i feel like id just be doing what it does and not what i think of doing if that makes sense. no hand holding from ai!!!  
+So because of that im reverting everything and starting from the beginning!!!  
 
