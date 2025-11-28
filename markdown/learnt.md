@@ -24,9 +24,11 @@ UINT unsigned int. windows uses unsigned ints in APIs
 WINAPI is a calling convention macro. use it when calling windows APIs or declaring them.  
 LPINPUT = Long Pointer(LP) to INPUT. INPUT is a struct defined in windows.h that represents a single input event.  
 FUNCTION POINTERS: int(*fptr)(int, int) initialize it by pointerName = &functionName  
+UNION is a really cool thing, basically different data types can share the same memory location. although only one member can use up the spot, others just dont exist. useful for saving memory by reusinig the same memory space!!!  
 DO typedef before it so u dont have to keep initializing it  
 INPUT structure used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.  
 in C its easy to load it all. just do HMODULE hName = LoadLibraryA("name.dll") then make a structure pointer. then strucPTR name = GetProcAddress(hName, procName)  
 wildcard *.c in makefile gets every .smth thingy  
 hold ctrl and u can press on any variable or header or whatever in VSC and itll show u where it is in the header file.  
+__declspec(dllimport) to import dlls, there are more than dllimport functions, got to check the documentation.  
 

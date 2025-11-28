@@ -1,15 +1,17 @@
 // #include <Windows.h>
 // just defining the thingies ill use (did it by holding ctrl and yes shows it how its defined, im not going to learn this by memory...)
-typedef void *HMODULE;
+typedef long LONG;
+typedef const char *LPCSTR;
 typedef unsigned int UINT;
 typedef unsigned long ULONG;
 typedef unsigned long DWORD;
-typedef long LONG;
 typedef unsigned __int64 ULONG_PTR, *PULONG_PTR;
-typedef const char *LPCSTR;
 typedef void *LPVOID;
+typedef void *HMODULE;
 
 #define WINAPI __stdcall
+
+typedef int (WINAPI *FARPROC)(void);
 
 /* LoadLibraryA and GetProcAddress doc
 HMODULE LoadLibraryA(
@@ -23,7 +25,7 @@ FARPROC GetProcAddress(
 */
 
 __declspec(dllimport) HMODULE WINAPI LoadLibraryA(LPCSTR lpLibFileName); 
-__declspec(dllimport) LPVOID WINAPI GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
+__declspec(dllimport) FARPROC WINAPI GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
 
 typedef struct tagMOUSEINPUT {
     LONG    dx;
@@ -32,12 +34,12 @@ typedef struct tagMOUSEINPUT {
     DWORD   dwFlags;
     DWORD   time;
     ULONG_PTR dwExtraInfo;
-} MOUSEINPUT, *PMOUSEINPUT, *LPMOUSEINPUT;
+} MOUSEINPUT;
 
 typedef struct tagINPUT {
     DWORD   type;
 
-    union
+    union // unions 
     {
         MOUSEINPUT      mi;
         /* we only use the mouseinput so these dont matter
@@ -47,10 +49,13 @@ typedef struct tagINPUT {
     }; 
 } INPUT;
 
+
+/*
+INPUT_MOUSE 0 The event is a mouse event. Use the mi structure of the union.
+MOUSEEVENTF_RIGHTDOWN 0x0008 The right button was pressed.
+*/
 #define INPUT_MOUSE 0
 #define MOUSEEVENTF_RIGHTDOWN 0x0008
-
-
 
 void RightClickMouse(){
     HMODULE hUser32 = LoadLibraryA("user32.dll"); // gets user32.dll handle

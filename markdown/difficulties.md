@@ -19,3 +19,4 @@ AAAA I JUST MADE THE THINGY TO CLICK RIGHT CLICK ON LAUNCH IN C wowe. WHILE also
 SOOOO remade the whole thing but with right click from sratch so i think i got this down now. anyhow. MY BRAIN FROM MAKEFILE is dying. i hate makefile. time is flying by too fast. its already 4pm.  
 idonno i decided to try and make it without #include <windows.h> how will that go i dont know  
 OH MY GOSH U CAN CHECK EVERYTHING JUST BY HOLDING CTRL AND GOING TO THE thingie. this will be so much easier now.  
+gosh making ur own windows.h is just that easy, didnt think that it was so easy to dynamically load modules. all u need is documentation.  
