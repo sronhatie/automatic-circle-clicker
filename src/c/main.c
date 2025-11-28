@@ -17,7 +17,8 @@ UINT SendInput(
 
 int main(){
     HMODULE h_user32 = LoadLibraryA(DLLName); // gets user32.dll handle
-    
+    typedef UINT (WINAPI *SendInputPtr)(UINT, LPINPUT, int); // we use UINT, LPINPUT, int because thats how its declared as in the doc.
+
 
 
     return 0;
