@@ -1,10 +1,62 @@
-#include <Windows.h>
+// #include <Windows.h>
+// just defining the thingies ill use (did it by holding ctrl and yes shows it how its defined, im not going to learn this by memory...)
+typedef void *HMODULE;
+typedef unsigned int UINT;
+typedef unsigned long ULONG;
+typedef unsigned long DWORD;
+typedef long LONG;
+typedef unsigned __int64 ULONG_PTR, *PULONG_PTR;
+typedef const char *LPCSTR;
+typedef void *LPVOID;
+
+#define WINAPI __stdcall
+
+/* LoadLibraryA and GetProcAddress doc
+HMODULE LoadLibraryA(
+  [in] LPCSTR lpLibFileName
+);
+
+FARPROC GetProcAddress(
+  [in] HMODULE hModule,
+  [in] LPCSTR  lpProcName
+);
+*/
+
+__declspec(dllimport) HMODULE WINAPI LoadLibraryA(LPCSTR lpLibFileName); 
+__declspec(dllimport) LPVOID WINAPI GetProcAddress(HMODULE hModule, LPCSTR lpProcName);
+
+typedef struct tagMOUSEINPUT {
+    LONG    dx;
+    LONG    dy;
+    DWORD   mouseData;
+    DWORD   dwFlags;
+    DWORD   time;
+    ULONG_PTR dwExtraInfo;
+} MOUSEINPUT, *PMOUSEINPUT, *LPMOUSEINPUT;
+
+typedef struct tagINPUT {
+    DWORD   type;
+
+    union
+    {
+        MOUSEINPUT      mi;
+        /* we only use the mouseinput so these dont matter
+        KEYBDINPUT    ki;
+        HARDWAREINPUT hi;
+        */
+    }; 
+} INPUT;
+
+#define INPUT_MOUSE 0
+#define MOUSEEVENTF_RIGHTDOWN 0x0008
+
+
 
 void RightClickMouse(){
     HMODULE hUser32 = LoadLibraryA("user32.dll"); // gets user32.dll handle
-    typedef UINT (WINAPI *SendInputPtr)(UINT, LPINPUT, int); // we use UINT, LPINPUT, int because thats how its declared as in the doc.
+    typedef UINT (WINAPI *SendInputPtr)(UINT, INPUT*, int); // we use UINT, LPINPUT, int because thats how its declared as in the doc.
     // SendInputPtr is a type, not a function thats why we make mySendInput
-    // GetProcAdress returns a FARPROC, we need the same value as mySendInput so we do (SendIputPtr)
+    // GetProcAddress returns a FARPROC, we need the same value as mySendInput so we do (SendIputPtr)
     SendInputPtr mySendInput = (SendInputPtr)GetProcAddress(hUser32, "SendInput");
 
     INPUT input = {0};

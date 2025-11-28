@@ -14,4 +14,8 @@ WHY IS CALLING AN API SO DIFFICULT it just feels like magic numbers are everywhe
 MAKEFILE is so annoying.  
 OKAY so i realized that im too dependent on AI and that from this point onwards im not going to use any AI code whatsoever. Like i want to learn as much as I can and with AI in the way i feel like id just be doing what it does and not what i think of doing if that makes sense. no hand holding from ai!!!  
 So because of that im reverting everything and starting from the beginning!!!  
-
+makefile is still annoying. anyhow ill try dynamically calling the API using C first to understand how it works, ill also make the whole clicking thingy and then just try to make it in asm  
+AAAA I JUST MADE THE THINGY TO CLICK RIGHT CLICK ON LAUNCH IN C wowe. WHILE also dynamically linking it. so its not just calling the SendInput its actually using mySendInput oh wowe. proud of myself for that.  
+SOOOO remade the whole thing but with right click from sratch so i think i got this down now. anyhow. MY BRAIN FROM MAKEFILE is dying. i hate makefile. time is flying by too fast. its already 4pm.  
+idonno i decided to try and make it without #include <windows.h> how will that go i dont know  
+OH MY GOSH U CAN CHECK EVERYTHING JUST BY HOLDING CTRL AND GOING TO THE thingie. this will be so much easier now.  

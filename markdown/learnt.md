@@ -18,3 +18,15 @@ add /c so u only get .obj files
 add /I<directory> if the header is at a different location (no space, very important)  
 add /Fo<directory> to make obj files go to a certain directory (again no space)  
 link - to link obj files  
+use LoadLibraryA instead of LoadLibrary or LoadLibraryW because LoadLibrary is a Macro and A - ASCIIchar W - UTF16wchar  
+HMODULE in C is a handle to a loaded DLL  
+UINT unsigned int. windows uses unsigned ints in APIs  
+WINAPI is a calling convention macro. use it when calling windows APIs or declaring them.  
+LPINPUT = Long Pointer(LP) to INPUT. INPUT is a struct defined in windows.h that represents a single input event.  
+FUNCTION POINTERS: int(*fptr)(int, int) initialize it by pointerName = &functionName  
+DO typedef before it so u dont have to keep initializing it  
+INPUT structure used by SendInput to store information for synthesizing input events such as keystrokes, mouse movement, and mouse clicks.  
+in C its easy to load it all. just do HMODULE hName = LoadLibraryA("name.dll") then make a structure pointer. then strucPTR name = GetProcAddress(hName, procName)  
+wildcard *.c in makefile gets every .smth thingy  
+hold ctrl and u can press on any variable or header or whatever in VSC and itll show u where it is in the header file.  
+
