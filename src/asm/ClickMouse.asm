@@ -1,5 +1,13 @@
+INPUT_MOUSE EQU 0
+MOUSEEVENTF_LEFTDOWN EQU 02h
 
-.data 
+EXTERN LoadLibraryA:PROC
+EXTERN GetProcAddress:PROC
+
+.data
+    dllName db "User32.dll", 0
+    procName db "SendInput", 0
+    hModule dq ?
 
 .code
 PUBLIC ClickMouse
