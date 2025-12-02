@@ -5,7 +5,11 @@
 #include "cFunctions.h"
 
 int main(){
-  RightClickMouse();
+  Sleep(1000);
+  ClickMouse();
+
+  printf("\n");
+  printf("Hello!\n");
 
   return 0;
 }
