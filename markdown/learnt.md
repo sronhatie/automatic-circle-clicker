@@ -1,6 +1,7 @@
 ### The Start 2025-11
 MASM very different from TASM. more registers. RAX(64bits) EAX(32bits) and RSP ESP RDI EDI and other stuff  
-Also db(define byte 8bits) dw(define word 16bits) dd(define dword 32bits) dq(define qword 64bits) exist now.  
+Also db(define byte 8bits) dw(define word 16bits) dd(define
+dword 32bits) dq(define qword 64bits) exist now.  
 Stack grows downwards. So to allocate space u do SUB register, (size u want to allocate)
 Arguments in ASM: RCX, RDX, R8, R9 in that order a b c d  
 Return value: RAX  
@@ -31,4 +32,13 @@ in C its easy to load it all. just do HMODULE hName = LoadLibraryA("name.dll") t
 wildcard *.c in makefile gets every .smth thingy  
 hold ctrl and u can press on any variable or header or whatever in VSC and itll show u where it is in the header file.  
 __declspec(dllimport) to import dlls, there are more than dllimport functions, got to check the documentation.  
+  
+EXTERN name : PROC to tell it that its an executable proccess somehwere.  
+EXTERN name : qword to tell that its data somewhere idonno  
+Padding exists and theres no doc of it and u have to figure it out yourself where it is. Its called Field Alignments Inside a Struct.  
+if C calls ur function the stack is already aligned if not you have to align it yourself by doing AND RSP, -16  
+**x64dbg** use it. /Zi to generate a PDB file, helps with debugging (i wont use it cause yes).  
+save ur RAX value if youll need it again for example SendInputPtr.  
+because i called my ASM function from C, the compiler already allocates 32bytes and then also takes 8bytes for the return value. thats why my stack was misaligned by 8 at the start of my ASM program.  
+
 

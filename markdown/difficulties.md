@@ -20,3 +20,13 @@ SOOOO remade the whole thing but with right click from sratch so i think i got t
 idonno i decided to try and make it without #include <windows.h> how will that go i dont know  
 OH MY GOSH U CAN CHECK EVERYTHING JUST BY HOLDING CTRL AND GOING TO THE thingie. this will be so much easier now.  
 gosh making ur own windows.h is just that easy, didnt think that it was so easy to dynamically load modules. all u need is documentation.  
+  
+ill now try to write it all in asm by staring at my C code.  
+okay this is harder than it looks. since shadows space, stack 16 byte alignment AND function padding. gosh. i understand how the function padding works but i have no idea how to explain it.  
+this website is great though it doesnt talk about the last point https://retroscience.net/x64-assembly.html  
+dam only now do i get VS instead of VScode pain and suffering. i need it cause my code isnt working and not sure why so straight to registers i go!!!  
+ILL GO INSANE. nothings working, tried VS didnt work, i donno how it works. tried debuging in VS doesnt work. my code doesnt work. this is very frustrating since i cant even debug it, i need to find something that im able to see the inside of the code and how it works :((  
+woooo x64dbg exists where reverse engineers use it cool. it works. now i know why my program doesnt work. wrong alignment or something i donno i dont know anything i lied.  
+AAAAAAAAAAAAA MY MIND IS BROKEN. WHY WHY WHY WHY. pushing one nonvolatile fixes the alignment, pushing 2 nonvolatiles break the alignment???? this hurts. im not sure why its even misaligned to begind with :(  
+WOOOO I UNDERSTAND IT NOW. its cause i called my function in C and then the compiler just adds shadow space and then takes away 8 bytes for the return value, thats why THATS WHY it was misaligned by 8bytes at the start sobsobsob.  
+
