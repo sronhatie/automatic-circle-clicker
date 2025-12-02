@@ -55,7 +55,19 @@ ClickMouse PROC
     CALL GetProcAddress
     MOV SendInputPtr, RAX
 
-    
+    SUB RSP, SIZEOF INPUT ; allocate space for INPUT struct will be 28h (40) that means its not 16byte aligned
+    SUB RSP, 08h ; aligns the stack before CALL
+    MOV [RSP].INPUT.myType, INPUT_MOUSE
+    MOV [RSP].INPUT.mi.dwFlags, MOUSEEVENTF_LEFTDOWN
+
+    MOV RCX, 1
+    ; using MOV RDX, [RSP].INPUT wont work
+    LEA RDX, [RSP].INPUT ; start of INPUT struct 
+    MOV R8, SIZEOF INPUT
+    CALL SendInputPtr
+
+    ADD RSP, 08h
+    ADD RSP, SIZEOF INPUT ; remove space for INPUT struct
     ADD RSP, 28h ; remove shadowspace and alignment
     RET
 ClickMouse ENDP

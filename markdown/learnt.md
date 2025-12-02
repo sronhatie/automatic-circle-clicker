@@ -40,5 +40,7 @@ if C calls ur function the stack is already aligned if not you have to align it 
 **x64dbg** use it. /Zi to generate a PDB file, helps with debugging (i wont use it cause yes).  
 save ur RAX value if youll need it again for example SendInputPtr.  
 because i called my ASM function from C, the compiler already allocates 32bytes and then also takes 8bytes for the return value. thats why my stack was misaligned by 8 at the start of my ASM program.  
-
+ASM doesnt include padding for STRUCTs so u have to add padding urself :(  
+u can either make the struct in .data or dynamically in stack. just give it the amount it needs by doing SUB RSP, sizeof STRUCT and then u can use it like this [RSP].STRUCT.name.otherThing Dont forget to restore the RSP by doing ADD  
+always have a RET at the end please.  
 

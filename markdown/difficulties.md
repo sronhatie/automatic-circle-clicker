@@ -29,4 +29,5 @@ ILL GO INSANE. nothings working, tried VS didnt work, i donno how it works. trie
 woooo x64dbg exists where reverse engineers use it cool. it works. now i know why my program doesnt work. wrong alignment or something i donno i dont know anything i lied.  
 AAAAAAAAAAAAA MY MIND IS BROKEN. WHY WHY WHY WHY. pushing one nonvolatile fixes the alignment, pushing 2 nonvolatiles break the alignment???? this hurts. im not sure why its even misaligned to begind with :(  
 WOOOO I UNDERSTAND IT NOW. its cause i called my function in C and then the compiler just adds shadow space and then takes away 8 bytes for the return value, thats why THATS WHY it was misaligned by 8bytes at the start sobsobsob.  
+AAAAAAAAAAAAAAAAA WHY DOES MY VOID FUNCTION HAVE TO HAVE A RET. IVE BEEN HAVING PROBLEMS BECAUSE I DIDNT HAVE A RET AT THE END THIS IS PAIN. IVE BEEN DEBUGGING FOR HOURS AND HOURS AND ITS ALL BECAUSE I DIDNT HAVE A RET...  
 
