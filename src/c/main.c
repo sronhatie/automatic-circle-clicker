@@ -1,15 +1,16 @@
 #include <stdio.h>
-#include <Windows.h>
+#include <string.h>
 
 #include "asmFunctions.h"
 #include "cFunctions.h"
 
 int main(){
-  Sleep(1000);
-  ClickMouse();
+  FILE *osuFile;
+  osuFile = fopen("Kry.exe - Rift Walker (Ryuusei Aika) [Easy].osu", "r");
+  if(!osuFile){
+    return 1;
+  }
 
-  printf("\n");
-  printf("Hello!\n");
 
   return 0;
 }

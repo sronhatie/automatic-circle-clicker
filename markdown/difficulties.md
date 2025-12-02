@@ -31,3 +31,6 @@ AAAAAAAAAAAAA MY MIND IS BROKEN. WHY WHY WHY WHY. pushing one nonvolatile fixes 
 WOOOO I UNDERSTAND IT NOW. its cause i called my function in C and then the compiler just adds shadow space and then takes away 8 bytes for the return value, thats why THATS WHY it was misaligned by 8bytes at the start sobsobsob.  
 AAAAAAAAAAAAAAAAA WHY DOES MY VOID FUNCTION HAVE TO HAVE A RET. IVE BEEN HAVING PROBLEMS BECAUSE I DIDNT HAVE A RET AT THE END THIS IS PAIN. IVE BEEN DEBUGGING FOR HOURS AND HOURS AND ITS ALL BECAUSE I DIDNT HAVE A RET...  
 
+### Parsing .osu file
+idonno ill currently just download and find the .osu map manually, i might make this automatic someday.  
+

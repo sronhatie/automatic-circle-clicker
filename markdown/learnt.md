@@ -44,3 +44,4 @@ ASM doesnt include padding for STRUCTs so u have to add padding urself :(
 u can either make the struct in .data or dynamically in stack. just give it the amount it needs by doing SUB RSP, sizeof STRUCT and then u can use it like this [RSP].STRUCT.name.otherThing Dont forget to restore the RSP by doing ADD  
 always have a RET at the end please.  
 
+### Parsing .osu files
