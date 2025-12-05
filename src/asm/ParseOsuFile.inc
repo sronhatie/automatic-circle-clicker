@@ -9,3 +9,9 @@ FILE_ATTRIBUTE_NORMAL EQU 80h ; dwFlagsAndAttributes
 INVALID_HANDLE_VALUE EQU -1h ; return value from CreateFileA on failure
 NULL EQU 0
 
+HitObject STRUCT
+    x DWORD ?
+    y DWORD ?
+    objectTime DWORD ?
+    objectType DWORD ?
+HitObject ENDS
