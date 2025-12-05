@@ -58,4 +58,6 @@ Pointers must be in .data, dword thingies can be in .inc
 Do not continue with a bad handle, always zero it out if its bad.  
 Instead of chunk reading tiny files (DONT DO THIS FOR BIG FILES), its better to load it all into memory using GetFileSize, VirtualAlloc then read it using ReadFile. VirtualAlloc is simpler to use than HeapAlloc  
 lpBuffer is what u allocated using VirtualAlloc, nNumberOfBytesToRead will be file size for this call. outputs lpNumberOfBytesRead, so u need to give it a dword pointer
-
+To make a PROC with args u just do name PROC arg1:QWORD, arg2:DWORD (can be any size)  
+You cant reuse arg names if they already exist, so it has to be something else  
+Dont use LOOP, instead manually decrease it, since LOOP is slow and u have no control over it.  

@@ -57,6 +57,10 @@ ifGoodHandle:
     CALL ReadFile
     ; RAX holds true or false, our read bytes are in bytesRead
 
+    MOV RCX, fileBuffer
+    MOV EDX, bytesRead
+    CALL FindHitObjects
+
 
 
 
@@ -73,4 +77,21 @@ ifGoodHandle:
     ADD RSP, 38h ; fix shadow space and reserved
     RET
 ParseOsuFile ENDP
+
+FindHitObjects PROC ptrFileBuffer:QWORD, readLength:DWORD
+    PUSH RSI
+    MOV RSI, ptrFileBuffer
+    MOV ECX, readLength
+
+startLoop:
+
+
+    DEC ECX
+    JNZ startLoop
+
+
+    POP RSI
+    RET
+FindHitObjects ENDP
+
 END
