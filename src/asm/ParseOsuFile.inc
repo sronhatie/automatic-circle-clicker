@@ -1,5 +1,6 @@
 EXTERN CreateFileA:PROC
-EXTERN GetFileSize:PRoC
+EXTERN GetFileSize:PROC
+EXTERN VirtualAlloc:PROC
 EXTERN ReadFile:PROC
 EXTERN CloseHandle:PROC
 
