@@ -3,7 +3,7 @@ MASM very different from TASM. more registers. RAX(64bits) EAX(32bits) and RSP E
 Also db(define byte 8bits) dw(define word 16bits) dd(define
 dword 32bits) dq(define qword 64bits) exist now.  
 Stack grows downwards. So to allocate space u do SUB register, (size u want to allocate)
-Arguments in ASM: RCX, RDX, R8, R9 in that order a b c d  
+Arguments in ASM: RCX, RDX, R8, R9 in that order a b c d. the rest in stack, got to add it in reverse order.  
 Return value: RAX  
 Callee must preserve not-volatile (callee-saved) registers: RBX, RBP, RDI, RSI, R12-R15  
 Stack Alignment: the stack pointer must be 16-byte aligned at the point of a CALL  
@@ -54,4 +54,5 @@ ReadFile - you give it the handle from CreateFileA and read it. simple.
 CloseHandle - closes everything that calls itself a handle.  
 MASM has header files (.inc) where you can have structs, constants and even EXTERN declarations.  
 to use it in MASM do INCLUDE MyStuff.inc
-
+Pointers must be in .data, dword thingies can be in .inc  
+Do not continue with a bad handle, always zero it out if its bad.  
