@@ -1,0 +1,5 @@
+
+
+EXTERN CreateFileA:PROC
+EXTERN ReadFile:PROC
+EXTERN CloseHandle:PROC
