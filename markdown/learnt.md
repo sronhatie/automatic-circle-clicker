@@ -45,3 +45,13 @@ u can either make the struct in .data or dynamically in stack. just give it the 
 always have a RET at the end please.  
 
 ### Parsing .osu files
+malloc is portable. HeapAlloc is windows only.  
+when you write a C program, the compiler drags in the C Runtime Library(CRT), basically includes a lot of stuff.  
+for HeapAlloc you dont need the CRT so in MASM its better to use it. instead of malloc.  
+if you allocate with malloc, you have to free with free. if you do HeapAlloc you have to use HeapFree  
+CreateFileA - name is a lie, does a lot more than you think. opens a file, creates a file. basically its a file handle machine. returns a handle  
+ReadFile - you give it the handle from CreateFileA and read it. simple.  
+CloseHandle - closes everything that calls itself a handle.  
+MASM has header files (.inc) where you can have structs, constants and even EXTERN declarations.  
+to use it in MASM do INCLUDE MyStuff.inc
+

@@ -5,11 +5,8 @@
 #include "cFunctions.h"
 
 int main(){
-  FILE *osuFile;
-  osuFile = fopen("Kry.exe - Rift Walker (Ryuusei Aika) [Easy].osu", "r");
-  if(!osuFile){
-    return 1;
-  }
+  ClickMouse();
+  printf("aaaa");
 
 
   return 0;
