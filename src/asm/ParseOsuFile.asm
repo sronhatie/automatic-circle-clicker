@@ -61,6 +61,9 @@ ifGoodHandle:
     MOV EDX, bytesRead
     CALL FindHitObjects
 
+    MOV RCX, RAX
+    CALL ParseFile
+
 
 
 
@@ -84,14 +87,55 @@ FindHitObjects PROC ptrFileBuffer:QWORD, readLength:DWORD
     MOV ECX, readLength
 
 startLoop:
+    CMP ECX, 0
+    JE notFound
+    CMP ECX, 11
+    JL notFound
 
+    CMP BYTE PTR [RSI], '['
+    JNE wrong
+    CMP BYTE PTR [RSI + 1], 'H'
+    JNE wrong
+    CMP BYTE PTR [RSI + 2], 'i'
+    JNE wrong
+    CMP BYTE PTR [RSI + 3], 't'
+    JNE wrong
+    CMP BYTE PTR [RSI + 4], 'O'
+    JNE wrong
+    CMP BYTE PTR [RSI + 5], 'b'
+    JNE wrong
+    CMP BYTE PTR [RSI + 6], 'j'
+    JNE wrong
+    CMP BYTE PTR [RSI + 7], 'e'
+    JNE wrong
+    CMP BYTE PTR [RSI + 8], 't'
+    JNE wrong
+    CMP BYTE PTR [RSI + 9], 's'
+    JNE wrong
+    CMP BYTE PTR [RSI + 10], ']'
+    JNE wrong
 
+    JMP finish
+
+notFound:
+    MOV RAX, 0
+    POP RSI
+    RET
+
+wrong:
+    INC RSI
     DEC ECX
     JNZ startLoop
 
 
+finish:
+    LEA RAX, [RSI + 14] ; since [HitObjects]CR + LF is 14 symbols
     POP RSI
     RET
 FindHitObjects ENDP
 
+ParseFile PROC ptrFirstByte:QWORD 
+
+    RET
+ParseFile ENDP
 END
