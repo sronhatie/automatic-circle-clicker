@@ -56,3 +56,5 @@ MASM has header files (.inc) where you can have structs, constants and even EXTE
 to use it in MASM do INCLUDE MyStuff.inc
 Pointers must be in .data, dword thingies can be in .inc  
 Do not continue with a bad handle, always zero it out if its bad.  
+Instead of chunk reading tiny files, its better to load it all into memory using GetFileSize, VirtualAlloc then read it using ReadFile. VirtualAlloc is simpler to use than HeapAlloc  
+

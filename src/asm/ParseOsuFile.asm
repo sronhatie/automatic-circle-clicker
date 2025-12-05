@@ -2,7 +2,8 @@ INCLUDE ParseOsuFile.inc
 
 .data
     lpFileName db "Kry.exe - Rift Walker (Ryuusei Aika) [Easy].osu", 0
-    hCreateFile dq ?
+    fileHandle dq ?
+    fileSize dq ?
 
 PUBLIC ParseOsuFile
 .code
@@ -23,9 +24,8 @@ ParseOsuFile PROC
     CMP RAX, INVALID_HANDLE_VALUE
     JE ifBadHandle
 
-    MOV hCreateFile, RAX
+    MOV fileHandle, RAX
     JMP ifGoodHandle
-
 
 ifBadHandle:
     MOV RAX, 0
@@ -33,10 +33,10 @@ ifBadHandle:
     RET
 
 ifGoodHandle:
+    MOV RCX, fileHandle
+
     
     
-
-
     ADD RSP, 28h ; fix shadow space and reserved
     RET
 ParseOsuFile ENDP
