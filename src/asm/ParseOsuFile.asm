@@ -57,8 +57,19 @@ ifGoodHandle:
     CALL ReadFile
     ; RAX holds true or false, our read bytes are in bytesRead
 
-    
-    
+
+
+
+    ; CloseHandle ======================================
+    MOV RCX, fileHandle
+    CALL CloseHandle
+
+    ; VirtualFree ======================================
+    MOV RCX, fileBuffer
+    MOV RDX, NULL
+    MOV R8D, MEM_RELEASE ; its a DWORD
+    CALL VirtualFree
+
     ADD RSP, 38h ; fix shadow space and reserved
     RET
 ParseOsuFile ENDP
