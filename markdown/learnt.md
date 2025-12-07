@@ -60,4 +60,9 @@ Instead of chunk reading tiny files (DONT DO THIS FOR BIG FILES), its better to 
 lpBuffer is what u allocated using VirtualAlloc, nNumberOfBytesToRead will be file size for this call. outputs lpNumberOfBytesRead, so u need to give it a dword pointer
 To make a PROC with args u just do name PROC arg1:QWORD, arg2:DWORD (can be any size)  
 You cant reuse arg names if they already exist, so it has to be something else  
+TOO CONFUSING, easier to just use it without MASM naming thing. just MOV to registers RCX, RDX, R8, R9 be normal.  
 Dont use LOOP, instead manually decrease it, since LOOP is slow and u have no control over it.  
+SCAS(B) - Scan String. B means byte. SCASB Compare AL with byte at ES:(E)DI or RDI then set status flags.
+REPNE - Repeat While Not Equal. repeats while RCX != 0. very fast. very good.  
+if u do MOV RCX, RDX now RCX stores the address value of RDX. if u want to store its value do MOV RCX, [RDX] or if the size isnt obvious always have size PTR  
+size PTR is just a size hint, not give value, although both would return value if u did QWORD PTR RCX or [RCX]  

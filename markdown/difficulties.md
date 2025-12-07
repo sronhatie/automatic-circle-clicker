@@ -35,3 +35,6 @@ AAAAAAAAAAAAAAAAA WHY DOES MY VOID FUNCTION HAVE TO HAVE A RET. IVE BEEN HAVING 
 idonno ill currently just download and find the .osu map manually, i might make this automatic someday.  
 gosh making .inc files work is a pain i just made it have it in the same directory as .asm file otherwise it doesnt work:(  
 oh my ive gotten so much done and havent ranted in here what an acomplishment. im currently at the part where i read the file. truly getting the hang of winapi calling and ABI yay  
+was stuck on CALLING MY OWN FUNCTION. gosh i tried to do MASM naming PROC but yes too much work so i just do the normal way of moving to registers RCX, RDX, R8, R9  
+Current parser is very slow and whatnot since it compares it byte by byte but ill improve it in the future. what matters is that it work ;-;  
+doing maths with pointers is painful gosh getting the current left read bytes took ages. thank god for programmer calc in windows  

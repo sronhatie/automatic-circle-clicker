@@ -6,6 +6,7 @@ INCLUDE ParseOsuFile.inc
     fileSize dd ?
     fileBuffer dq ?
     bytesRead dd ?
+    ptrHitObject HitObject <>
 
 PUBLIC ParseOsuFile
 .code
@@ -37,6 +38,7 @@ ifBadHandle:
 ifGoodHandle:
     ; GetFileSize ======================================
     MOV RCX, fileHandle
+    MOV RDX, NULL
     CALL GetFileSize
     MOV fileSize, EAX ; since fileSize is DWORD
 
@@ -55,17 +57,19 @@ ifGoodHandle:
     MOV R9, offset bytesRead
     MOV QWORD PTR [RSP + 20h], NULL
     CALL ReadFile
-    ; RAX holds true or false, our read bytes are in bytesRead
+    ; RAX holds true or false, our byte size is in bytesRead
 
+    ; FindHitObjects ======================================
     MOV RCX, fileBuffer
     MOV EDX, bytesRead
     CALL FindHitObjects
 
-    MOV RCX, RAX
+    ; ParseFile ======================================
+    MOV RCX, RAX ; start of after [HitObjects]
+    MOV RDX, fileBuffer
+    MOV R8D, bytesRead
+    LEA R9, ptrHitObject ; LEA - load effective address, basically tells u that its a pointer
     CALL ParseFile
-
-
-
 
     ; CloseHandle ======================================
     MOV RCX, fileHandle
@@ -81,15 +85,13 @@ ifGoodHandle:
     RET
 ParseOsuFile ENDP
 
-FindHitObjects PROC ptrFileBuffer:QWORD, readLength:DWORD
+FindHitObjects PROC
     PUSH RSI
-    MOV RSI, ptrFileBuffer
-    MOV ECX, readLength
+    MOV RSI, RCX ; fileBuffer
+    MOV ECX, EDX ; bytesRead
 
 startLoop:
-    CMP ECX, 0
-    JE notFound
-    CMP ECX, 11
+    CMP ECX, 12
     JL notFound
 
     CMP BYTE PTR [RSI], '['
@@ -108,11 +110,13 @@ startLoop:
     JNE wrong
     CMP BYTE PTR [RSI + 7], 'e'
     JNE wrong
-    CMP BYTE PTR [RSI + 8], 't'
+    CMP BYTE PTR [RSI + 8], 'c'
     JNE wrong
-    CMP BYTE PTR [RSI + 9], 's'
+    CMP BYTE PTR [RSI + 9], 't'
     JNE wrong
-    CMP BYTE PTR [RSI + 10], ']'
+    CMP BYTE PTR [RSI + 10], 's'
+    JNE wrong
+    CMP BYTE PTR [RSI + 11], ']'
     JNE wrong
 
     JMP finish
@@ -125,7 +129,8 @@ notFound:
 wrong:
     INC RSI
     DEC ECX
-    JNZ startLoop
+    CMP ECX, 0
+    JNE startLoop
 
 
 finish:
@@ -134,8 +139,27 @@ finish:
     RET
 FindHitObjects ENDP
 
-ParseFile PROC ptrFirstByte:QWORD 
+ParseFile PROC
+    PUSH RSI
+    PUSH RDI
+    PUSH RBX
+    
+    MOV RSI, RCX ; start of after [HitObjects]. (currentPtr)
+    MOV RDI, RDX ; start of file (startPtr)
+    MOV ECX, R8D ; bytesRead (totalLength)
+    MOV RBX, R9 ; pointer to HitObject struct
 
+    ; remaining = totalLength - (currentPtr - startPtr)
+    MOV RAX, RSI
+    SUB RAX, RDX
+    SUB RCX, RAX ; RCX holds remaining length 
+
+    ; value = value * 10 + (digit - '0')
+
+
+    POP RBX
+    POP RDI
+    POP RSI
     RET
 ParseFile ENDP
 END
