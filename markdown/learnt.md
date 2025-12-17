@@ -66,3 +66,7 @@ SCAS(B) - Scan String. B means byte. SCASB Compare AL with byte at ES:(E)DI or R
 REPNE - Repeat While Not Equal. repeats while RCX != 0. very fast. very good.  
 if u do MOV RCX, RDX now RCX stores the address value of RDX. if u want to store its value do MOV RCX, [RDX] or if the size isnt obvious always have size PTR  
 size PTR is just a size hint, not give value, although both would return value if u did QWORD PTR RCX or [RCX]  
+IMUL dest, src, number  
+MOVZX - move zero extend doesnt work on 64bit values  
+ALWAYS ALLOCATE SPACE FOR UR STRUCT ARRAY else you want ur program to rewrite memory and then thats not good...  
+use XOR reg,reg to zero it out instead of MOV reg, 0. saves memory also it sets ZF=1 and clears CF, OF  

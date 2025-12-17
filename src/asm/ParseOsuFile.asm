@@ -6,14 +6,14 @@ INCLUDE ParseOsuFile.inc
     fileSize dd ?
     fileBuffer dq ?
     bytesRead dd ?
-    ptrHitObject HitObject <>
+    startOfHitObject dq ?
+    ptrHitObject dq ?
 
 PUBLIC ParseOsuFile
 .code
 
 ParseOsuFile PROC
     SUB RSP, 38h ; shadows space, fix alignment, will need 3 args in stack for call
-
 
     ; CreateFileA ======================================
     MOV RCX, offset lpFileName
@@ -63,12 +63,29 @@ ifGoodHandle:
     MOV RCX, fileBuffer
     MOV EDX, bytesRead
     CALL FindHitObjects
+    mov startOfHitObject, rax
 
-    ; ParseFile ======================================
-    MOV RCX, RAX ; start of after [HitObjects]
+    ; FindHitCount ======================================
+    MOV RCX, startOfHitObject ; start of after [HitObjects]
     MOV RDX, fileBuffer
     MOV R8D, bytesRead
-    LEA R9, ptrHitObject ; LEA - load effective address, basically tells u that its a pointer
+    CALL FindHitCount
+
+    imul rax, rax, 10h
+
+    ; VirtualAlloc ======================================
+    MOV RCX, NULL
+    MOV rdx, rax ; rax holds hitcount * 16
+    MOV R8, MEM_COMMIT
+    MOV R9, PAGE_READWRITE
+    CALL VirtualAlloc
+    mov ptrHitObject, rax ; ptrHitObject now points to that memory space thingy how fun
+
+    ; ParseFile ======================================
+    MOV RCX, startOfHitObject ; start of after [HitObjects]
+    MOV RDX, fileBuffer
+    MOV R8D, bytesRead
+    mov R9, ptrHitObject
     CALL ParseFile
 
     ; CloseHandle ======================================
@@ -81,10 +98,11 @@ ifGoodHandle:
     MOV R8D, MEM_RELEASE ; its a DWORD
     CALL VirtualFree
 
+    mov rax, ptrHitObject ; returns pointer to HitObject
     ADD RSP, 38h ; fix shadow space and reserved
     RET
 ParseOsuFile ENDP
-
+; =======================================================================================================
 FindHitObjects PROC
     PUSH RSI
     MOV RSI, RCX ; fileBuffer
@@ -132,13 +150,47 @@ wrong:
     CMP ECX, 0
     JNE startLoop
 
-
 finish:
     LEA RAX, [RSI + 14] ; since [HitObjects]CR + LF is 14 symbols
     POP RSI
     RET
 FindHitObjects ENDP
+; =======================================================================================================
+FindHitCount PROC
+    PUSH RSI
+    push rdi
 
+    MOV RSI, RCX ; start of after [HitObjects]. (currentPtr)
+    MOV RDI, RDX ; start of file (startPtr)
+    MOV ECX, R8D ; bytesRead (totalLength)
+
+    ; remaining = totalLength - (currentPtr - startPtr)
+    MOV RAX, RSI
+    SUB RAX, RDX
+    SUB RCX, RAX ; RCX holds remaining length 
+
+    mov rax, 00h ; counter
+
+findNewLine:
+    cmp rcx, 00h
+    je done
+
+    cmp byte ptr [rsi], 0Ah ; (newline)
+    jne next
+
+    inc rax
+
+next:
+    inc rsi
+    dec rcx
+jmp findNewLine
+
+done:
+    pop rdi
+    POP RSI
+    RET
+FindHitCount ENDP
+; =======================================================================================================
 ParseFile PROC
     PUSH RSI
     PUSH RDI
@@ -154,9 +206,64 @@ ParseFile PROC
     SUB RAX, RDX
     SUB RCX, RAX ; RCX holds remaining length 
 
+    mov r8, 00h ; offset index
+    mov r10, 00h ; field index (x, y, time, type)
     ; value = value * 10 + (digit - '0')
+startLoop:
+    mov rax, 00h
 
+makeNumber:
+    cmp byte ptr [rsi], '0'
+    jb notNumber
+    cmp byte ptr [rsi], '9'
+    ja notNumber
 
+    movzx r11d, byte ptr [rsi]
+    sub r11, '0'
+    imul rax, rax, 10
+    add rax, r11
+
+    dec rcx
+    inc rsi
+    cmp byte ptr [rsi], ','
+    jne makeNumber
+
+    mov dword ptr [rbx + r8], eax ; start of HitObject + offset = number
+    add r8, 04h
+    ; skip ,
+    dec rcx
+    inc rsi
+
+    inc r10
+    cmp r10, 04h
+    jne finishLoop
+
+    mov r10, 00h
+    mov r8, 00h
+    add rbx, sizeof HitObject
+skipSlider:
+    inc rsi
+    dec rcx
+    cmp byte ptr [rsi], 0Ah ; (newline)
+    jne skipSlider
+
+    ; skips 0Ah (newline)
+    inc rsi
+    dec rcx
+
+finishLoop:
+    cmp rcx, 00h
+jne startLoop
+
+jmp finish
+
+notNumber:
+    inc rsi
+    dec rcx
+    jmp finishLoop
+
+finish:
+    mov rax, rbx
     POP RBX
     POP RDI
     POP RSI

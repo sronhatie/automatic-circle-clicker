@@ -38,3 +38,10 @@ oh my ive gotten so much done and havent ranted in here what an acomplishment. i
 was stuck on CALLING MY OWN FUNCTION. gosh i tried to do MASM naming PROC but yes too much work so i just do the normal way of moving to registers RCX, RDX, R8, R9  
 Current parser is very slow and whatnot since it compares it byte by byte but ill improve it in the future. what matters is that it work ;-;  
 doing maths with pointers is painful gosh getting the current left read bytes took ages. thank god for programmer calc in windows  
+ive decided to move over to no caps. got lazy holding the SHIFT key all the time so yes.  
+dam im in a rabbit hole of learning stuff. got PE-bear got ghidra, im currently trying to understand how PE(preinstallation environment) works and all that. 
+im going to die trying to make this parser work, i swear to god why is it so difficult to just ADD A NUMBER TO A STRUCTURE COME ON.  
+im confused. I MADE THE PARSER WORK SOMEHOW. BUT NOW MY CLICKMOUSE.ASM IS NOT WORKING??? it just crashes on loadlibraryA what is this i didnt even change anything in it sobbing.  
+sigh sigh sigh so the clickmouse.asm is working. but for some reason my printf isnt. the stack is aligned so not sure whats going on this is painful.  
+AHABHSABAHA I DID IT I DID IT. it was painful and the code is spaghetti and its not good and not clean and not aaaaaa. it works. thats all that matters. IT WORKS. IT ACTUALLY WORKS. I PARSED AN .OSU FILE IN MASM AND PUT IT IN A STRUCT ARRAY THATS INSaNE.  
+the bugs were so dum and argh! like ah yes i didnt allocate memory to my struct. like WHERE ARE U WRITING THE DATA u buffoon. everything works. im happy.  
