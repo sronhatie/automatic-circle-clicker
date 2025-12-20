@@ -28,7 +28,7 @@ int keyWasPressed(){
         }
     }
         
-    if(pGetAsyncKeyState(KEY) & 0x8000){ // & is the bitwise AND 
+    if(pGetAsyncKeyState(KEY) & 0x8000){ // & is the bitwise AND operand
         printf("Key was pressed\n");
         wasPressed = 1;
     }

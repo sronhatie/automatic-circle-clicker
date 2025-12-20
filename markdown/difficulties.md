@@ -49,4 +49,8 @@ omg i understand the difference between statically linking and dynamically linki
 
 ### Making a start/stop feature
 no idea where to even start. but yes fun  
+oh i think im halfway there... made keyWasPressed.c runtime dynamically load so i wouldnt have to type something in makefile to make user32 work. too lazy for that.  
+so yes, a lot quicker to just runtime load it than messing with my makefile.  
+now all that's left is to make a toggle. since it can return 0 or 1. it return 1 if its pressed. althought it would always return 1111111 if u just hold it, but yes thats a problem for the future i guess.  
+its kind of cool not seeing functions you use from WinAPI not appearing on pe-bear. like it doesnt even know that im logging keys with GetAsyncKeyState or that im pressing stuff using SendInput  
 
