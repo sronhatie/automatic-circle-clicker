@@ -70,3 +70,27 @@ IMUL dest, src, number
 MOVZX - move zero extend doesnt work on 64bit values  
 ALWAYS ALLOCATE SPACE FOR UR STRUCT ARRAY else you want ur program to rewrite memory and then thats not good...  
 use XOR reg,reg to zero it out instead of MOV reg, 0. saves memory also it sets ZF=1 and clears CF, OF  
+
+### Making a start/stop feature
+there are different ways to check keyboard input:
+```
+GetAsyncKeyState - polling, global, simple
+GetKeyState - polling, but weaker, better for GUI apps
+WM_KEYDOWN, WM_KEYUP - event-based, high-maintenance
+RegisterRawInputDevices - low-level, precise, complicated. how games do it
+SetWindowsHookEx - low-level keyboard hook, powerful and instant.
+DirectInput / XInput - controllers only.
+```
+SHORT is a 16bit bitfield.  
+oh right there are 3 ways to link ur dlls:
+```
+Static Linking - code is copied into EXE
+Load-time Dynamic Linking - doing include 
+Runtime Dynamic Linking - using LoadLibrary and GetProcAddress
+```
+always pair these:
+```
+LoadLibrary -> FreeLibrary
+CreateFile -> CloseHandle
+malloc -> free
+```

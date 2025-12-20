@@ -45,3 +45,8 @@ im confused. I MADE THE PARSER WORK SOMEHOW. BUT NOW MY CLICKMOUSE.ASM IS NOT WO
 sigh sigh sigh so the clickmouse.asm is working. but for some reason my printf isnt. the stack is aligned so not sure whats going on this is painful.  
 AHABHSABAHA I DID IT I DID IT. it was painful and the code is spaghetti and its not good and not clean and not aaaaaa. it works. thats all that matters. IT WORKS. IT ACTUALLY WORKS. I PARSED AN .OSU FILE IN MASM AND PUT IT IN A STRUCT ARRAY THATS INSaNE.  
 the bugs were so dum and argh! like ah yes i didnt allocate memory to my struct. like WHERE ARE U WRITING THE DATA u buffoon. everything works. im happy.  
+omg i understand the difference between statically linking and dynamically linking libraries. its a good thing i did both in my asm program. like i can see the difference between it using PE-bear and x64dbg ITS INSANE. i love this. cant wait to get to manually mapping and stuff. gosh so programs lie to us its insane.  
+
+### Making a start/stop feature
+no idea where to even start. but yes fun  
+

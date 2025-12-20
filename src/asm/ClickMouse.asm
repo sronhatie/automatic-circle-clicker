@@ -1,4 +1,4 @@
-INCLUDE ClickMouse.inc
+INCLUDE clickMouse.inc
 
 .data
     dllName db "User32.dll", 0
@@ -7,9 +7,9 @@ INCLUDE ClickMouse.inc
     SendInputPtr dq ?
 
 .code
-PUBLIC ClickMouse
+PUBLIC clickMouse
 
-ClickMouse PROC
+clickMouse PROC
     ; since we'll call a WINAPI function, we need to reserve 32bytes shadow space
     ; we also have to align the stack by 8 bytes because the C CALL pushes the 8byte return address (RAX)
     SUB RSP, 28h ; 32(shadow space) + 8(misalignment)
@@ -39,5 +39,5 @@ ClickMouse PROC
     ADD RSP, SIZEOF INPUT ; remove space for INPUT struct
     ADD RSP, 28h ; remove shadowspace and alignment
     RET
-ClickMouse ENDP
+clickMouse ENDP
 END

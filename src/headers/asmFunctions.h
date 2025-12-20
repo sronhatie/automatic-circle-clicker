@@ -10,7 +10,5 @@ typedef struct{
 
 extern HitObject *ParseOsuFile();
 extern void ClickMouse();
-extern void MoveCursor(int x, int y);
-extern void Wait(int ms);
 
 #endif

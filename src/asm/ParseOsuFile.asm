@@ -1,4 +1,4 @@
-INCLUDE ParseOsuFile.inc
+INCLUDE parseOsuFile.inc
 
 .data
     lpFileName db "Kry.exe - Rift Walker (Ryuusei Aika) [Easy].osu", 0
@@ -12,7 +12,7 @@ INCLUDE ParseOsuFile.inc
 PUBLIC ParseOsuFile
 .code
 
-ParseOsuFile PROC
+parseOsuFile PROC
     SUB RSP, 38h ; shadows space, fix alignment, will need 3 args in stack for call
 
     ; CreateFileA ======================================
@@ -62,14 +62,14 @@ ifGoodHandle:
     ; FindHitObjects ======================================
     MOV RCX, fileBuffer
     MOV EDX, bytesRead
-    CALL FindHitObjects
+    CALL findHitObjects
     mov startOfHitObject, rax
 
     ; FindHitCount ======================================
     MOV RCX, startOfHitObject ; start of after [HitObjects]
     MOV RDX, fileBuffer
     MOV R8D, bytesRead
-    CALL FindHitCount
+    CALL findHitCount
 
     imul rax, rax, 10h
 
@@ -86,7 +86,7 @@ ifGoodHandle:
     MOV RDX, fileBuffer
     MOV R8D, bytesRead
     mov R9, ptrHitObject
-    CALL ParseFile
+    CALL parseFile
 
     ; CloseHandle ======================================
     MOV RCX, fileHandle
@@ -101,9 +101,9 @@ ifGoodHandle:
     mov rax, ptrHitObject ; returns pointer to HitObject
     ADD RSP, 38h ; fix shadow space and reserved
     RET
-ParseOsuFile ENDP
+parseOsuFile ENDP
 ; =======================================================================================================
-FindHitObjects PROC
+findHitObjects PROC
     PUSH RSI
     MOV RSI, RCX ; fileBuffer
     MOV ECX, EDX ; bytesRead
@@ -154,9 +154,9 @@ finish:
     LEA RAX, [RSI + 14] ; since [HitObjects]CR + LF is 14 symbols
     POP RSI
     RET
-FindHitObjects ENDP
+findHitObjects ENDP
 ; =======================================================================================================
-FindHitCount PROC
+findHitCount PROC
     PUSH RSI
     push rdi
 
@@ -189,9 +189,9 @@ done:
     pop rdi
     POP RSI
     RET
-FindHitCount ENDP
+findHitCount ENDP
 ; =======================================================================================================
-ParseFile PROC
+parseFile PROC
     PUSH RSI
     PUSH RDI
     PUSH RBX
@@ -268,5 +268,5 @@ finish:
     POP RDI
     POP RSI
     RET
-ParseFile ENDP
+parseFile ENDP
 END
