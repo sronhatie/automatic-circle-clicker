@@ -9,7 +9,7 @@ INCLUDE parseOsuFile.inc
     startOfHitObject dq ?
     ptrHitObject dq ?
 
-PUBLIC ParseOsuFile
+PUBLIC parseOsuFile
 .code
 
 parseOsuFile PROC
