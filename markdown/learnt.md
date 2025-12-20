@@ -94,3 +94,4 @@ LoadLibrary -> FreeLibrary
 CreateFile -> CloseHandle
 malloc -> free
 ```
+static - a global variable that only lives in the function. initialized once before main
