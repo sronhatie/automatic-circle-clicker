@@ -5,8 +5,6 @@
 #include "asmFunctions.h"
 #include "cFunctions.h"
 
-#define KEY 'Q'
-
 int main(){
 
   //HitObject *PtrHitObject;

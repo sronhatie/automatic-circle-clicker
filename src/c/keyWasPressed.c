@@ -11,6 +11,7 @@ typedef SHORT (WINAPI *getAsyncKeyStatePtr)(int);
 
 int keyWasPressed(){
     int wasPressed = 0;
+    static int previousWasPressed = 0;
     static getAsyncKeyStatePtr pGetAsyncKeyState = NULL;
     static HMODULE hUser32;
 
@@ -27,10 +28,17 @@ int keyWasPressed(){
             return 0;
         }
     }
-        
+
     if(pGetAsyncKeyState(KEY) & 0x8000){ // & is the bitwise AND operand
-        printf("Key was pressed\n");
         wasPressed = 1;
+    }
+
+    if(!previousWasPressed && wasPressed){
+        previousWasPressed = 1;
+    } else if(previousWasPressed && wasPressed){
+        wasPressed = 0;
+    } else{
+        previousWasPressed = 0;
     }
 
     return wasPressed;
