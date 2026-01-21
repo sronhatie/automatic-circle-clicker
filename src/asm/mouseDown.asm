@@ -1,4 +1,7 @@
-INCLUDE clickMouse.inc
+; AAAAA the other values in the INPUT struct arent zeroed out so uh fix that someday.
+; also i only need to resolve the SendInputPtr only once. so yes wasteful 
+
+INCLUDE wininput.inc
 
 .data
     dllName db "User32.dll", 0
@@ -7,9 +10,9 @@ INCLUDE clickMouse.inc
     SendInputPtr dq ?
 
 .code
-PUBLIC clickMouse
+PUBLIC mouseDown
 
-clickMouse PROC
+mouseDown PROC
     ; since we'll call a WINAPI function, we need to reserve 32bytes shadow space
     ; we also have to align the stack by 8 bytes because the C CALL pushes the 8byte return address (RAX)
     SUB RSP, 28h ; 32(shadow space) + 8(misalignment)
@@ -39,5 +42,5 @@ clickMouse PROC
     ADD RSP, SIZEOF INPUT ; remove space for INPUT struct
     ADD RSP, 28h ; remove shadowspace and alignment
     RET
-clickMouse ENDP
+mouseDown ENDP
 END

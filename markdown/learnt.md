@@ -1,8 +1,7 @@
 ### The Start 2025-11
 MASM very different from TASM. more registers. RAX(64bits) EAX(32bits) and RSP ESP RDI EDI and other stuff  
-Also db(define byte 8bits) dw(define word 16bits) dd(define
-dword 32bits) dq(define qword 64bits) exist now.  
-Stack grows downwards. So to allocate space u do SUB register, (size u want to allocate)
+Also db(define byte 8bits) dw(define word 16bits) dd(define dword 32bits) dq(define qword 64bits) exist now.  
+Stack grows downwards. So to allocate space u do SUB register, (size u want to allocate)  
 Arguments in ASM: RCX, RDX, R8, R9 in that order a b c d. the rest in stack, got to add it from rsp + 20h because shadow space exists  
 Return value: RAX  
 Callee must preserve not-volatile (callee-saved) registers: RBX, RBP, RDI, RSI, R12-R15  
@@ -19,7 +18,7 @@ add /c so u only get .obj files
 add /I<directory> if the header is at a different location (no space, very important)  
 add /Fo<directory> to make obj files go to a certain directory (again no space)  
 link - to link obj files  
-use LoadLibraryA instead of LoadLibrary or LoadLibraryW because LoadLibrary is a Macro and A - ASCIIchar W - UTF16wchar  
+use LoadLibraryA (in MASM) instead of LoadLibrary or LoadLibraryW because LoadLibrary is a Macro and A - ASCIIchar W - UTF16wchar  
 HMODULE in C is a handle to a loaded DLL  
 UINT unsigned int. windows uses unsigned ints in APIs  
 WINAPI is a calling convention macro. use it when calling windows APIs or declaring them.  
@@ -94,4 +93,4 @@ LoadLibrary -> FreeLibrary
 CreateFile -> CloseHandle
 malloc -> free
 ```
-static - a global variable that only lives in the function. initialized once before main
+static - a global variable that only lives in the function. initialized once before main  

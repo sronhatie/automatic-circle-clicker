@@ -53,4 +53,6 @@ oh i think im halfway there... made keyWasPressed.c runtime dynamically load so 
 so yes, a lot quicker to just runtime load it than messing with my makefile.  
 now all that's left is to make a toggle. since it can return 0 or 1. it return 1 if its pressed. althought it would always return 1111111 if u just hold it, but yes thats a problem for the future i guess.  
 its kind of cool not seeing functions you use from WinAPI not appearing on pe-bear. like it doesnt even know that im logging keys with GetAsyncKeyState or that im pressing stuff using SendInput  
-
+well well well i love "static". anyhow just finished making keyWasPressed function. it actually works. doesnt look pretty but WORKS. next step starting the program. since i have everything. like timing, location, and a way to start it yay.  
+NOOOOOO LMAO I FORGOT THAT MY MOUSE HAS TO MOVVEEE i only maed it be able to click. sigh sigh. time to add a way to move the mouse in MASM cause yes!!!!!,,,,,  
+yay i finished doing the move mouse thingy!!!! getting closer to the end.  
