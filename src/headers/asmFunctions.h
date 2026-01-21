@@ -8,7 +8,8 @@ typedef struct{
     int objectType;
 } HitObject;
 
-extern HitObject *ParseOsuFile();
-extern void ClickMouse();
+extern HitObject *parseOsuFile();
+extern void mouseDown();
+extern void moveMouse(int x, int y);
 
 #endif

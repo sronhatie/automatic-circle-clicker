@@ -7,16 +7,24 @@
 
 int main(){
 
-  //HitObject *PtrHitObject;
-  //PtrHitObject = ParseOsuFile();
+  HitObject *PtrHitObject;
+  PtrHitObject = parseOsuFile();
   
-  //ClickMouse();
+  //mouseDown();
+  moveMouse(50, 50);
   printf("aaaa\n");
+/*
   while(1){
-    printf("%d ", keyWasPressed());
+    if(keyWasPressed()){
+      int i = 0;
+      while(PtrHitObject[i].x != 0){
+
+        ++i;
+      }
+    }
     Sleep(100);
   }
-
+*/
   return 0;
 }
 
