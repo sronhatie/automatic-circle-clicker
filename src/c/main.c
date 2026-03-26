@@ -10,9 +10,11 @@ int main(){
   HitObject *PtrHitObject;
   PtrHitObject = parseOsuFile();
   
-  //mouseDown();
   moveMouse(50, 50);
   printf("aaaa\n");
+  mouseDown();
+  mouseUp();
+  
 /*
   while(1){
     if(keyWasPressed()){

@@ -10,6 +10,7 @@ typedef struct{
 
 extern HitObject *parseOsuFile();
 extern void mouseDown();
+extern void mouseUp();
 extern void moveMouse(int x, int y);
 
 #endif
