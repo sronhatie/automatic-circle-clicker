@@ -2,7 +2,9 @@ C_DIR = src/c/
 ASM_DIR = src/asm/
 
 # MAKE THE EXE FILE
-OBJS = build/main.obj build/mouseDown.obj build/mouseUp.obj build/parseOsuFile.obj build/keyWasPressed.obj build/moveMouse.obj
+OBJS = build/main.obj build/mouseDown.obj build/mouseUp.obj build/parseOsuFile.obj build/keyWasPressed.obj build/moveMouse.obj \
+	build/findPID.obj
+
 main.exe: $(OBJS)
 	link $(OBJS)
 	
@@ -18,6 +20,9 @@ build/parseOsuFile.obj: $(ASM_DIR)parseOsuFile.asm | build/
 	
 build/moveMouse.obj: $(ASM_DIR)moveMouse.asm | build/
 	ML64 /c /Fobuild/ src/asm/moveMouse.asm
+
+build/findPID.obj: $(ASM_DIR)findPID.asm | build/
+	ML64 /c /Fobuild/ src/asm/findPID.asm
 
 # GET C OBJECT FILES
 build/main.obj: $(C_DIR)main.c | build/

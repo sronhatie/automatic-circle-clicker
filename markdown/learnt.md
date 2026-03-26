@@ -94,3 +94,16 @@ CreateFile -> CloseHandle
 malloc -> free
 ```
 static - a global variable that only lives in the function. initialized once before main  
+
+### Timing
+External Memory Reading (with pattern scanning)
+```
+CreateToolhelp32Snapshot -> enumerate processes
+find PID -> pick your target
+OpenProcess -> get a handle (your “access ticket”)
+AOB / pattern scan -> locate dynamic addresses in memory
+ReadProcessMemory -> actually read values
+loop on LoadState -> poll game state
+```
+PID - Process ID. Windows gives each process an ID as an integer.
+It is better to not declare globals if you only need it for one call (that's where registers come into play)

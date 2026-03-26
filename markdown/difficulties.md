@@ -56,3 +56,10 @@ its kind of cool not seeing functions you use from WinAPI not appearing on pe-be
 well well well i love "static". anyhow just finished making keyWasPressed function. it actually works. doesnt look pretty but WORKS. next step starting the program. since i have everything. like timing, location, and a way to start it yay.  
 NOOOOOO LMAO I FORGOT THAT MY MOUSE HAS TO MOVVEEE i only maed it be able to click. sigh sigh. time to add a way to move the mouse in MASM cause yes!!!!!,,,,,  
 yay i finished doing the move mouse thingy!!!! getting closer to the end.  
+
+### Timing
+been like a month since ive last done anything, so quickly added a mouseUp() and now timing will be a pain i can already see it.  
+dam i derailed. ill probably try getting the time when the map loads so its synced. like prefectly synced, no more pressing q + this should help out in the future getting its mapname and yes  
+CreateToolhelp32Snapshot - takes a snapshot of the specified processes.
+LoadState has to be 5
+ReadProcessMemory - reads the value of resolved address.

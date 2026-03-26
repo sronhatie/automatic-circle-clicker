@@ -12,5 +12,6 @@ extern HitObject *parseOsuFile();
 extern void mouseDown();
 extern void mouseUp();
 extern void moveMouse(int x, int y);
+extern DWORD findPID(char *processName);
 
 #endif
