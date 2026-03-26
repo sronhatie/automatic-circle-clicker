@@ -2,6 +2,7 @@
 ; also i only need to resolve the SendInputPtr only once. so yes wasteful 
 
 INCLUDE wininput.inc
+include dynload.inc
 
 .data
     dllName db "User32.dll", 0

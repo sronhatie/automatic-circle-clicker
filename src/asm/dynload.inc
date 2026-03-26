@@ -1,0 +1,3 @@
+EXTERN LoadLibraryA:PROC
+EXTERN GetProcAddress:PROC
+EXTERN FreeLibrary:PROC
