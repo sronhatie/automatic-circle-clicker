@@ -63,3 +63,12 @@ dam i derailed. ill probably try getting the time when the map loads so its sync
 CreateToolhelp32Snapshot - takes a snapshot of the specified processes.
 LoadState has to be 5
 ReadProcessMemory - reads the value of resolved address.
+jeebus cristus i went on a detour using cheatengine is tough. but i managed to find something. opcodes i guess. i have no ieda. my brain is fried. 
+aaaaaaaaa to find the value of LoadState i need to find the base pointer and then do + 10h since thats prolly where the struct holds LoadState. my gosh. this is painful.
+it seems i was looking for a ghost... anyhow looked through osus github code thingy and it seems that gamestate is LocalUserPlayingState and that its an enum of 0 1 2 (NotPlaying, Break, Playing)  
+ILSpy for reading  
+dnSpyEx for interacting (attaching processes)  
+im going to go insane. ive been doing this for like 10hours+ now and i still have no idea how to make it work. aiya aiya  
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA okay. i think ill try finding a method and then using RCX (WINDOWS ABI STUFF WOOOOO) to figure out "this" of OsuGameDesktop and after that its just offsets ;-;-;-;-;-;  
+OH MY GOD. I ACTUALLY GOT A WAY TO ALWAYS GET THE TOP OF THE THINGY BASICALLY JUST hook into UpdateAfterChildren() (to do that u have to find the signature bytes that mostly dont change even after restarting. ofc u can also have wildcards. the longer the signature the better chance to find the exact byte sequence) in OsuGame and take RCX value. SINCE THAT IS THE POINTER TO OSUGAME CAUSE WINDOWS ABI YEGIAEYBAIBALK aiya aiya so proud of myself. finally some progress after like 20hours+   
+next step will be to act as a debugger and get the RCX value. after that just add the offsets (THE EASIEST AND BEST PART OF ALL OF THIS AYUAHAOIHAO)  
