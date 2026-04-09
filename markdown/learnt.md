@@ -109,3 +109,6 @@ PID - Process ID. Windows gives each process an ID as an integer.
 It is better to not declare globals if you only need it for one call (that's where registers come into play)
 VirtualQueryEx - checks what kind of memory is there also fills ur MEMORY_BASIC_INFORMATION struct  
 Machine code lives in executable pages, not just random readable memory  
+VirtualProtectEx - change protection on a region
+WriteProcessMemory - writes new bytes
+FlushInstructionCache - flushes old cache so the new instructions can run.

@@ -13,5 +13,8 @@ extern void mouseDown();
 extern void mouseUp();
 extern void moveMouse(int x, int y);
 extern DWORD findPID(char *processName);
+extern int isExecutablePage(DWORD protect);
+extern int memCmpWildcard(unsigned char *buffer, unsigned char *signature, char *mask);
+extern int writeOneByte(HANDLE hProcess, uintptr_t address, BYTE value);
 
 #endif
