@@ -16,7 +16,8 @@ OBJS = build/main.obj \
 	build/closeDebugEventHandles.obj \
 	build/waitForInitialAttachBreakpoint.obj \
 	build/captureBreakpointRCX.obj \
-	build/findPlayingStateValue.obj
+	build/getPlayingStateValue.obj \
+	build/getPlayerPtr.obj
 
 
 main.exe: $(OBJS)
@@ -66,8 +67,11 @@ build/waitForInitialAttachBreakpoint.obj: $(C_DIR)waitForInitialAttachBreakpoint
 build/captureBreakpointRCX.obj: $(C_DIR)captureBreakpointRCX.c | build/
 	cl /c /Isrc/headers /Fobuild/ $(C_DIR)captureBreakpointRCX.c
 
-build/findPlayingStateValue.obj: $(C_DIR)findPlayingStateValue.c | build/
-	cl /c /Isrc/headers /Fobuild/ $(C_DIR)findPlayingStateValue.c
+build/getPlayingStateValue.obj: $(C_DIR)getPlayingStateValue.c | build/
+	cl /c /Isrc/headers /Fobuild/ $(C_DIR)getPlayingStateValue.c
+
+build/getPlayerPtr.obj: $(C_DIR)getPlayerPtr.c | build/
+	cl /c /Isrc/headers /Fobuild/ $(C_DIR)getPlayerPtr.c
 
 # MAKE BUILD FOLDER IF IT DOESNT EXIST
 build/:

@@ -6,25 +6,18 @@
 
 #include "asmFunctions.h"
 #include "cFunctions.h"
-
-unsigned char updateAfterChildrenSignature[] = {
-  0x48, 0x8B, 0xD9,
-  0x48, 0x8B, 0xB3, 0xA0, 0x05, 0x00, 0x00,
-  0x48, 0x8B, 0xBB, 0x10, 0x05, 0x00, 0x00,
-  0x48, 0x8B, 0xCF,
-  0x48, 0x85, 0xC9,
-  0x0F, 0x84, 0x00, 0x00, 0x00, 0x00, // the 4 0x00 are wildcards
-  0xC5, 0xFA, 0x10, 0x81, 0x08, 0x01, 0x00, 0x00
-};
-
-char *updateAfterChildrenMask = "xxxxxxxxxxxxxxxxxxxxxxxxx????xxxxxxxx";
+#include "signatures.h"
 
 int main(){
     char *processName = "osu!.exe";
     DWORD processID = findPID(processName);
+    if(!processID){
+        printf("Osu!lazer not running");
+        return 1;
+    }
 
-    HitObject *PtrHitObject;
-    PtrHitObject = parseOsuFile();
+    // HitObject *PtrHitObject;
+    // PtrHitObject = parseOsuFile();
 
     HANDLE hProcess = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION | PROCESS_QUERY_INFORMATION, FALSE, processID);
 
@@ -46,7 +39,8 @@ int main(){
 
     int previousPlayingStateValue = -1;
     while(1){
-        int playingStateValue = findPlayingStateValue(hProcess, osuGamePtr);
+        uintptr_t playerPtr = getPlayerPtr(hProcess, osuGamePtr);
+        int playingStateValue = getPlayingStateValue(hProcess, playerPtr);
             if (playingStateValue != previousPlayingStateValue) {
                 printf("playingStateValue = %d\n", playingStateValue);
                 previousPlayingStateValue = playingStateValue;
