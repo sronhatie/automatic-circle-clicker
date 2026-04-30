@@ -8,6 +8,15 @@
 #include "cFunctions.h"
 #include "signatures.h"
 
+
+uintptr_t readPtr(HANDLE hProcess, uintptr_t address){
+    uintptr_t value = 0;
+
+    ReadProcessMemory(hProcess, (LPCVOID)address, &value, sizeof(value), NULL);
+
+    return value;
+}
+
 int main(){
     char *processName = "osu!.exe";
     DWORD processID = findPID(processName);
@@ -40,12 +49,16 @@ int main(){
     int previousPlayingStateValue = -1;
     while(1){
         uintptr_t playerPtr = getPlayerPtr(hProcess, osuGamePtr);
+        uintptr_t playfieldPtr = getPlayfieldPtr(hProcess, playerPtr);
+        double currentTime = getCurrentTime(hProcess, playfieldPtr);
+        printf("CURRENT TIME: %f", currentTime);
+
         int playingStateValue = getPlayingStateValue(hProcess, playerPtr);
             if (playingStateValue != previousPlayingStateValue) {
                 printf("playingStateValue = %d\n", playingStateValue);
                 previousPlayingStateValue = playingStateValue;
             }
-        Sleep(50);
+        Sleep(500);
     }
 
     CloseHandle(hProcess);

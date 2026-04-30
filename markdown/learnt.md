@@ -114,3 +114,5 @@ WriteProcessMemory - writes new bytes
 FlushInstructionCache - flushes old cache so the new instructions can run.
 size_t - for normal C/C++ code
 SIZE_T - for windows code to match windows documentation
+Pointer return - usually RAX
+double return  - XMM0
