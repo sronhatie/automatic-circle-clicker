@@ -17,21 +17,18 @@ main.exe: $(OBJS)
 	
 # GET ASM OBJECT FILES
 
-$(BUILD_DIR)/%.obj: $(ASM_DIR)/%.asm | $(BUILD_DIR)
+$(BUILD_DIR)/%.obj: $(ASM_DIR)/%.asm
 	ML64 /c /Fo$@ $<
 
 # GET C OBJECT FILES
 
-$(BUILD_DIR)/%.obj: $(C_DIR)/%.c | $(BUILD_DIR) $(BUILD_DIR)/memory
+$(BUILD_DIR)/%.obj: $(C_DIR)/%.c | $(BUILD_DIR)
 	cl /c /Isrc/headers /Fo$@ $<
 
 # MAKE BUILD FOLDER IF IT DOESNT EXIST
 
 $(BUILD_DIR):
 	mkdir $(BUILD_DIR)
-
-$(BUILD_DIR)/memory:
-	mkdir $(BUILD_DIR)\memory
 
 clean:
 	del main.exe
