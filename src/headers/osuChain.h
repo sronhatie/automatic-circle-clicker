@@ -3,6 +3,7 @@
 
 #include <Windows.h>
 
+uintptr_t getOsuGamePtr(HANDLE hProcess, DWORD processID);
 uintptr_t getPlayerPtr(HANDLE hProcess, uintptr_t osuGamePtr);
 uintptr_t getPlayfieldPtr(HANDLE hProcess, uintptr_t playerPtr);
 int getPlayingStateValue(HANDLE hProcess, uintptr_t playerPtr);

@@ -1,8 +1,29 @@
 #include <windows.h>
 
+#include "asmFunctions.h"
+#include "debugging.h"
 #include "osuChain.h"
 #include "offsets.h"
 #include "memory.h"
+#include "signatures.h"
+
+uintptr_t getOsuGamePtr(HANDLE hProcess, DWORD processID){
+    uintptr_t updateAfterChildrenAddr = findPatternInProcess(hProcess, updateAfterChildrenSignature, updateAfterChildrenMask);
+
+    BYTE originalByte = 0;
+    ReadProcessMemory(hProcess, (LPCVOID)updateAfterChildrenAddr, &originalByte, 1, NULL);
+
+    DebugActiveProcess(processID);
+    DebugSetProcessKillOnExit(FALSE);
+
+    waitForInitialAttachBreakpoint();
+    writeOneByte(hProcess, updateAfterChildrenAddr, 0xCC);
+
+    uintptr_t osuGamePtr = captureBreakpointRCX(hProcess, updateAfterChildrenAddr, originalByte);
+    DebugActiveProcessStop(processID);
+
+    return osuGamePtr;
+}
 
 uintptr_t getPlayerPtr(HANDLE hProcess, uintptr_t osuGamePtr){
     uintptr_t screenStack = readPtr(hProcess, osuGamePtr + osuOffsets.osuGame.screenStack);

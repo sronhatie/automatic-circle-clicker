@@ -154,21 +154,3 @@ int waitForInitialAttachBreakpoint(){
         }
     }
 }
-
-uintptr_t getOsuGamePtr(HANDLE hProcess, DWORD processID){
-    uintptr_t updateAfterChildrenAddr = findPatternInProcess(hProcess, updateAfterChildrenSignature, updateAfterChildrenMask);
-
-    BYTE originalByte = 0;
-    ReadProcessMemory(hProcess, (LPCVOID)updateAfterChildrenAddr, &originalByte, 1, NULL);
-
-    DebugActiveProcess(processID);
-    DebugSetProcessKillOnExit(FALSE);
-
-    waitForInitialAttachBreakpoint();
-    writeOneByte(hProcess, updateAfterChildrenAddr, 0xCC);
-
-    uintptr_t osuGamePtr = captureBreakpointRCX(hProcess, updateAfterChildrenAddr, originalByte);
-    DebugActiveProcessStop(processID);
-
-    return osuGamePtr;
-}
