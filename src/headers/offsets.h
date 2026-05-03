@@ -76,8 +76,17 @@ typedef struct{
 } DrawableOsuHitObjectOffsets;
 
 typedef struct{
+    uintptr_t sliderInputManager;
+} DrawableSliderOffsets;
+
+typedef struct{
+    uintptr_t slider;
+} SliderInputManagerOffsets;
+
+typedef struct{
     uintptr_t hitObject;
     uintptr_t result;
+    uintptr_t lifetimeEnd;
 } HitObjectLifetimeEntryOffsets;
 
 typedef struct{
@@ -88,6 +97,11 @@ typedef struct{
     uintptr_t startTimeBindable;
     uintptr_t hitWindows;
 } HitObjectOffsets;
+
+typedef struct{
+    uintptr_t headCircle;
+    uintptr_t tailCircle;
+} SliderOffsets;
 
 typedef struct{
     uintptr_t value;
@@ -126,9 +140,12 @@ typedef struct{
     DictionaryEntryOffsets dictionaryEntry;
 
     DrawableOsuHitObjectOffsets drawableOsuHitObject;
+    DrawableSliderOffsets drawableSlider;
+    SliderInputManagerOffsets sliderInputManager;
     HitObjectLifetimeEntryOffsets hitObjectLifetimeEntry;
     JudgementResultOffsets judgementResult;
     HitObjectOffsets hitObject;
+    SliderOffsets slider;
     BindableOffsets bindable;
     HitWindowsOffsets hitWindows;
     HitAreaOffsets hitArea;

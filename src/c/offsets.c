@@ -73,9 +73,18 @@ OsuOffsets osuOffsets = {
         .hitArea = 0x408
     },
 
+    .drawableSlider = {
+        .sliderInputManager = 0x428
+    },
+
+    .sliderInputManager = {
+        .slider = 0x208
+    },
+
     .hitObjectLifetimeEntry = {
         .hitObject = 0x38,
-        .result = 0x48
+        .result = 0x48,
+        .lifetimeEnd = 0x20
     },
 
     .judgementResult = {
@@ -85,6 +94,11 @@ OsuOffsets osuOffsets = {
     .hitObject = {
         .startTimeBindable = 0x10,
         .hitWindows = 0x20
+    },
+
+    .slider = {
+        .headCircle = 0x100,
+        .tailCircle = 0x108
     },
 
     .bindable = {

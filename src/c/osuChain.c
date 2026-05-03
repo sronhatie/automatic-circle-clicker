@@ -91,10 +91,48 @@ uintptr_t getDrawableHitObjectPtr(HANDLE hProcess, uintptr_t drawablePtr){
     return readPtr(hProcess, entry + osuOffsets.hitObjectLifetimeEntry.hitObject);
 }
 
+uintptr_t getDrawableSliderInputManagerPtr(HANDLE hProcess, uintptr_t drawablePtr){
+    return readPtr(hProcess, drawablePtr + osuOffsets.drawableSlider.sliderInputManager);
+}
+
+uintptr_t getSliderInputManagerSliderPtr(HANDLE hProcess, uintptr_t sliderInputManagerPtr){
+    return readPtr(hProcess, sliderInputManagerPtr + osuOffsets.sliderInputManager.slider);
+}
+
+uintptr_t getSliderHeadCirclePtr(HANDLE hProcess, uintptr_t hitObjectPtr){
+    return readPtr(hProcess, hitObjectPtr + osuOffsets.slider.headCircle);
+}
+
+uintptr_t getSliderTailCirclePtr(HANDLE hProcess, uintptr_t hitObjectPtr){
+    return readPtr(hProcess, hitObjectPtr + osuOffsets.slider.tailCircle);
+}
+
 double getHitObjectStartTime(HANDLE hProcess, uintptr_t hitObjectPtr){
     uintptr_t startTimeBindable = readPtr(hProcess, hitObjectPtr + osuOffsets.hitObject.startTimeBindable);
 
     return readDouble(hProcess, startTimeBindable + osuOffsets.bindable.value);
+}
+
+double getDrawableStartTime(HANDLE hProcess, uintptr_t drawablePtr){
+    uintptr_t hitObject = getDrawableHitObjectPtr(hProcess, drawablePtr);
+
+    return getHitObjectStartTime(hProcess, hitObject);
+}
+
+double getEntryLifetimeEnd(HANDLE hProcess, uintptr_t entryPtr){
+    return readDouble(hProcess, entryPtr + osuOffsets.hitObjectLifetimeEntry.lifetimeEnd);
+}
+
+double getDrawableLifetimeEnd(HANDLE hProcess, uintptr_t drawablePtr){
+    uintptr_t entry = getDrawableEntryPtr(hProcess, drawablePtr);
+
+    return getEntryLifetimeEnd(hProcess, entry);
+}
+
+double getSliderEndTime(HANDLE hProcess, uintptr_t hitObjectPtr){
+    uintptr_t tailCircle = getSliderTailCirclePtr(hProcess, hitObjectPtr);
+
+    return getHitObjectStartTime(hProcess, tailCircle);
 }
 
 uintptr_t getHitObjectHitWindowsPtr(HANDLE hProcess, uintptr_t hitObjectPtr){
