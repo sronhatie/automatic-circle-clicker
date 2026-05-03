@@ -7,19 +7,19 @@ uintptr_t readPtr(HANDLE hProcess, uintptr_t address){
 }
 
 BYTE readByte(HANDLE hProcess, uintptr_t address){
-    BYTE value = 0;
+    uintptr_t value = 0;
     ReadProcessMemory(hProcess, (LPCVOID)address, &value, sizeof(value), NULL);
     return value;
 }
 
 int readInt(HANDLE hProcess, uintptr_t address){
-    int value = 0;
+    uintptr_t value = 0;
     ReadProcessMemory(hProcess, (LPCVOID)address, &value, sizeof(value), NULL);
     return value;
 }
 
 double readDouble(HANDLE hProcess, uintptr_t address){
-    double value = 0;
+    uintptr_t value = 0;
     ReadProcessMemory(hProcess, (LPCVOID)address, &value, sizeof(value), NULL);
     return value;
 }
