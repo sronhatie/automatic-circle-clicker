@@ -18,6 +18,9 @@ uintptr_t getDictionaryEntryValuePtr(HANDLE hProcess, uintptr_t entryPtr);
 
 uintptr_t getDrawableEntryPtr(HANDLE hProcess, uintptr_t drawablePtr);
 uintptr_t getDrawableHitObjectPtr(HANDLE hProcess, uintptr_t drawablePtr);
+double getHitObjectStartTime(HANDLE hProcess, uintptr_t hitObjectPtr);
+uintptr_t getHitObjectHitWindowsPtr(HANDLE hProcess, uintptr_t hitObjectPtr);
+double getHitWindowsMeh(HANDLE hProcess, uintptr_t hitWindowsPtr);
 uintptr_t getDrawableResultPtr(HANDLE hProcess, uintptr_t drawablePtr);
 int getDrawableResultType(HANDLE hProcess, uintptr_t drawablePtr);
 uintptr_t getDrawableHitAreaPtr(HANDLE hProcess, uintptr_t drawablePtr);

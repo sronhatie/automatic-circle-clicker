@@ -85,10 +85,19 @@ typedef struct{
 } JudgementResultOffsets;
 
 typedef struct{
-    uintptr_t startTime;
-    uintptr_t endTime;
+    uintptr_t startTimeBindable;
     uintptr_t hitWindows;
 } HitObjectOffsets;
+
+typedef struct{
+    uintptr_t value;
+} BindableOffsets;
+
+typedef struct{
+    uintptr_t great;
+    uintptr_t ok;
+    uintptr_t meh;
+} HitWindowsOffsets;
 
 typedef struct{
     uintptr_t isHovered;
@@ -120,6 +129,8 @@ typedef struct{
     HitObjectLifetimeEntryOffsets hitObjectLifetimeEntry;
     JudgementResultOffsets judgementResult;
     HitObjectOffsets hitObject;
+    BindableOffsets bindable;
+    HitWindowsOffsets hitWindows;
     HitAreaOffsets hitArea;
     PlayingStateOffsets playingState;
 } OsuOffsets;

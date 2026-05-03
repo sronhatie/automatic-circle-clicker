@@ -91,6 +91,20 @@ uintptr_t getDrawableHitObjectPtr(HANDLE hProcess, uintptr_t drawablePtr){
     return readPtr(hProcess, entry + osuOffsets.hitObjectLifetimeEntry.hitObject);
 }
 
+double getHitObjectStartTime(HANDLE hProcess, uintptr_t hitObjectPtr){
+    uintptr_t startTimeBindable = readPtr(hProcess, hitObjectPtr + osuOffsets.hitObject.startTimeBindable);
+
+    return readDouble(hProcess, startTimeBindable + osuOffsets.bindable.value);
+}
+
+uintptr_t getHitObjectHitWindowsPtr(HANDLE hProcess, uintptr_t hitObjectPtr){
+    return readPtr(hProcess, hitObjectPtr + osuOffsets.hitObject.hitWindows);
+}
+
+double getHitWindowsMeh(HANDLE hProcess, uintptr_t hitWindowsPtr){
+    return readDouble(hProcess, hitWindowsPtr + osuOffsets.hitWindows.meh);
+}
+
 uintptr_t getDrawableResultPtr(HANDLE hProcess, uintptr_t drawablePtr){
     uintptr_t entry = getDrawableEntryPtr(hProcess, drawablePtr);
 
@@ -99,6 +113,10 @@ uintptr_t getDrawableResultPtr(HANDLE hProcess, uintptr_t drawablePtr){
 
 int getDrawableResultType(HANDLE hProcess, uintptr_t drawablePtr){
     uintptr_t result = getDrawableResultPtr(hProcess, drawablePtr);
+
+    if(!result){
+        return 0; // HitResult.None
+    }
 
     return readInt(hProcess, result + osuOffsets.judgementResult.type);
 }

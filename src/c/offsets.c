@@ -82,13 +82,21 @@ OsuOffsets osuOffsets = {
         .type = 0x20
     },
 
-    // =============== NEED TO FIND THESE =====================
     .hitObject = {
-        .startTime = 0x0,
-        .endTime = 0x0,
-        .hitWindows = 0x0
+        .startTimeBindable = 0x10,
+        .hitWindows = 0x20
     },
-    // ========================================================
+
+    .bindable = {
+        .value = 0x40
+    },
+
+    .hitWindows = {
+        .great = 0x8,
+        .ok = 0x10,
+        .meh = 0x18
+    },
+
     .hitArea = {
         .isHovered = 0x144
     },
