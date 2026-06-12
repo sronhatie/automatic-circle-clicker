@@ -83,3 +83,6 @@ SO SO its been a few months, and i wanted to see if my thingy works if i updated
 im very dumb... i shouldve made TEST CASES OR SOMETHING I DONT KNOW. NOW I DONT KNOW WHERE IT BREAKS.... this is horrible. it finds the OsuGame pointer thingy, but not the other thingies. and i dont know where it breaks... this is bad very bad... im going to make a function to print all the thingies, that way i can at least see where it breaks.  
 also what the hek is this spaghetti code ill need to restructure it in the future for sure  
 oh it broke only at the first part screenStack so thats good. not much changing.  
+
+### End Game
+so im just looking through the code adding comments and whatnot. and gosh my code is running on hopes and prayers, i dont check for fails basically everywhere.  

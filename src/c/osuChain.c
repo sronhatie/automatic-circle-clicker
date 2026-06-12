@@ -13,12 +13,14 @@ uintptr_t getOsuGamePtr(HANDLE hProcess, DWORD processID){
     BYTE originalByte = 0;
     ReadProcessMemory(hProcess, (LPCVOID)updateAfterChildrenAddr, &originalByte, 1, NULL);
 
-    DebugActiveProcess(processID);
+    DebugActiveProcess(processID); // attaches as a debugger
+// TODO: check if it fails or not (the program just silently fails if another debugger is already attached to it.)
     DebugSetProcessKillOnExit(FALSE);
 
-    waitForInitialAttachBreakpoint();
-    writeOneByte(hProcess, updateAfterChildrenAddr, 0xCC);
+    waitForInitialAttachBreakpoint(); // removes the first breakpoint (0xCC aka int3)
+    writeOneByte(hProcess, updateAfterChildrenAddr, 0xCC); 
 
+    // gets rcx, since that holds the address of OsuGame
     uintptr_t osuGamePtr = captureBreakpointRCX(hProcess, updateAfterChildrenAddr, originalByte);
     DebugActiveProcessStop(processID);
 

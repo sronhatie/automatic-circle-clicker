@@ -116,3 +116,7 @@ size_t - for normal C/C++ code
 SIZE_T - for windows code to match windows documentation
 Pointer return - usually RAX
 double return  - XMM0
+
+### End Game
+After calling a WinAPI function, its best to use `GetLastError()` tells you why it failed, although not all WinAPI functions work with this function.  
+If future code depends on previous code, it's best to check if it's valid (Im talking about WinAPI functions)

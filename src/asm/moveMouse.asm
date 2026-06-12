@@ -23,16 +23,19 @@ moveMouse PROC
     
     mov rcx, offset dllName
     call LoadLibraryA
+; TODO: check if failed or not
     mov hModule, rax
 
     mov rcx, hModule
     mov rdx, offset procName
     call GetProcAddress
+; TODO: check if failed or not
     mov SendInputPtr, rax
 
     sub rsp, sizeof INPUT
-    sub rsp, 08h
+    sub rsp, 08h ; stack alignment
 
+; ALSO THIS SHOULD BREAK SINCE IM LITERALLY OVERWRITING THE SHADOW SPACE, but oh welp, i dont use the function currently, so future problem
     mov [rsp].INPUT.myType, 0
     mov [rsp].INPUT.mi.mouseData, 0
     mov [rsp].INPUT.mi.time, 0
@@ -43,7 +46,7 @@ moveMouse PROC
     mov [rsp].INPUT.mi.myDx, r12d
     mov [rsp].INPUT.mi.dy, r13d
     mov eax, MOUSEEVENTF_MOVE
-    or eax, MOUSEEVENTF_ABSOLUTE
+    or eax, MOUSEEVENTF_ABSOLUTE ; 0 to 65535 not pixel coordinates
     mov [rsp].INPUT.mi.dwFlags, eax
 
     mov rcx, 1
@@ -56,5 +59,6 @@ moveMouse PROC
     add rsp, 28h
     pop r13
     pop r12
+    ret
 moveMouse ENDP
 END

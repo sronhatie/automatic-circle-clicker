@@ -2,7 +2,9 @@
 PUBLIC memCmpWildcard
 
 memCmpWildcard PROC
-    ; rcx *buffer, rdx *signature, r8 *mask
+    ; rcx = *buffer 
+    ; rdx = *signature 
+    ; r8 = *mask
     xor r9, r9
 
 loopStart:

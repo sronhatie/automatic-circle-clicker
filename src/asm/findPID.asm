@@ -23,6 +23,7 @@ findPID PROC
 
     mov processName, rcx
 
+    ; requires to be set before calling Process32First
     mov pe.dwSize, SIZEOF PROCESSENTRY32
 
     mov rcx, offset dllName
@@ -34,32 +35,37 @@ findPID PROC
     mov rcx, hModule
     mov rdx, offset proc32Snapshot
     call GetProcAddress
+; TODO: check if failed or not
     mov CreateToolhelp32SnapshotPtr, rax
 
     mov ecx, TH32CS_SNAPPROCESS
-    xor edx, edx
+    xor edx, edx ; 0 means show all processes 
     call CreateToolhelp32SnapshotPtr
-    mov hSnapshot, rax
+; TODO: check if it failed or not
+; it returns INVALID_HANDLE_VALUE if it fails
+    mov hSnapshot, rax ; hSnapshot now holds a snapshot of all processes
 
     mov rcx, hModule
     mov rdx, offset proc32First
     call GetProcAddress
+; TODO: check if failed or not
     mov Process32FirstPtr, rax
 
     mov rcx, hSnapshot
     lea rdx, pe
-    call Process32FirstPtr
+    call Process32FirstPtr ; gets the first process on the list and fills it in pe
     test eax, eax
     jz zeroEAX
 
     mov rcx, hModule
     mov rdx, offset proc32Next
     call GetProcAddress
+; TODO: check if failed or not
     mov Process32NextPtr, rax
 
 startLoop:
-    lea r10, pe.szExeFile
-    mov rsi, processName
+    lea r10, pe.szExeFile ; holds the current process name
+    mov rsi, processName ; holds the process name we need
 
 compareLoop:
     mov al, byte ptr [r10]
@@ -89,6 +95,7 @@ zeroEAX:
     xor eax, eax
     
 finish:
+; TODO: CLOSE THE HANDLE OF hSnapshot
     add rsp, 20h
     pop rsi
     ret

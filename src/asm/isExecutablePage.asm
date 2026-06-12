@@ -9,7 +9,7 @@ isExecutablePage PROC
     test ecx, PAGE_NOACCESS
     jnz notExecutable
 
-    and ecx, 0FFh
+    and ecx, 0FFh ; removes high bit modifier flags
 
     cmp ecx, PAGE_EXECUTE
     je isExecutable

@@ -16,7 +16,10 @@ include memory.inc
 PUBLIC writeOneByte
 
 writeOneByte PROC
-    ; rcx hProcess, rdx breakpointAddress, r8 value
+    ; rcx = hProcess
+    ; rdx = breakpointAddress
+    ; r8 = value
+
     push r12
     push r13
     push r14
@@ -29,21 +32,25 @@ writeOneByte PROC
 
     mov rcx, offset dllName
     call LoadLibraryA
+; TODO: check if failed or not
     mov hModule, rax
 
     mov rcx, hModule
     mov rdx, offset vpName
     call GetProcAddress
+; TODO: check if failed or not
     mov VirtualProtectExPtr, rax
 
     mov rcx, hModule
     mov rdx, offset wpmName
     call GetProcAddress
+; TODO: check if failed or not
     mov WriteProcessMemoryPtr, rax
 
     mov rcx, hModule
     mov rdx, offset ficName
     call GetProcAddress
+; TODO: check if failed or not
     mov FlushInstructionCachePtr, rax
 
     ; [rsp + 20h] 5th arg

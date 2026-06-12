@@ -5,18 +5,18 @@ MOUSEEVENTF_LEFTUP equ 04h
 MOUSEEVENTF_ABSOLUTE equ 8000h
 
 MOUSEINPUT STRUCT 
-    myDx DWORD ? ; 0-4
-    dy DWORD ? ; 4-8
-    mouseData DWORD ? ; 8-12
-    dwFlags DWORD ? ; 12-16
-    time DWORD ? ; 16-20
-    padding DWORD ?; padding 20-24
+    myDx DWORD ?        ; 0-4
+    dy DWORD ?          ; 4-8
+    mouseData DWORD ?   ; 8-12
+    dwFlags DWORD ?     ; 12-16
+    time DWORD ?        ; 16-20
+    padding DWORD ?     ; padding 20-24
     dwExtraInfo QWORD ? ; 24-32
 MOUSEINPUT ENDS
 
 INPUT STRUCT
-    myType DWORD ? ; 0-4
-    padding DWORD ?; padding 4-8
+    myType DWORD ?   ; 0-4
+    padding DWORD ?  ; padding 4-8
     mi MOUSEINPUT <> ; zero outs the structure 8-40
 INPUT ENDS
 
