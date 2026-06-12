@@ -2,7 +2,7 @@
 
 OsuOffsets osuOffsets = {
     .osuGame = {
-        .screenStack = 0x5F8
+        .screenStack = 0x600
     },
 
     .screenStack = {

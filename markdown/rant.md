@@ -76,3 +76,10 @@ FINALLY its all done. i now have gamestate.value BUT LIKE i realized that i dont
 WILD i can now actually navigate objects and see who owns what. like go from value to the parent object just aaaa such a cool skill to have. this skill will make finding the Value i need way faster, i dont feel like im looking aimlessly.
 sigh sigh just finally managed to get CurrentTime. one thingy done ;-;-;-;-;-;-; 5more to go (this is taking way too long) but i think itll be easier now cause WINDBG is a beast. shouldve used it before, wouldve made my life a lot easier.
 okay so after taking a short break. i realized i was really dum. like why was i making new .c files for every function of finding an offset..... like what. just make one .c file with all the functions........ oh my.
+i dont know. my journey is heading to its end. well making a relax thingy. sure then ill have to improve its architecture and whatnot. maybe make it pretty, maybe add a gui. but like yes. ive done the circles, ive done the sliders. ive suffered with memory, ive suffered with MASM (not so much towards the end, dont really see a reason in suffering in it anymore.) and yes :( like i had so much fun, didnt expect to reach it so soon.  
+although im proud, i did a lot of stuff.  
+will move on to different projects once im done, so im glad about that. cant wait to actually make my own tiny kernel.  
+SO SO its been a few months, and i wanted to see if my thingy works if i updated the game. the answer is NO. so my first guess was that my signature of OsuGame changed and yes i was right, its different.  
+im very dumb... i shouldve made TEST CASES OR SOMETHING I DONT KNOW. NOW I DONT KNOW WHERE IT BREAKS.... this is horrible. it finds the OsuGame pointer thingy, but not the other thingies. and i dont know where it breaks... this is bad very bad... im going to make a function to print all the thingies, that way i can at least see where it breaks.  
+also what the hek is this spaghetti code ill need to restructure it in the future for sure  
+oh it broke only at the first part screenStack so thats good. not much changing.  

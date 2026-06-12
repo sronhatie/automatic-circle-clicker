@@ -23,5 +23,3 @@ double readDouble(HANDLE hProcess, uintptr_t address){
     ReadProcessMemory(hProcess, (LPCVOID)address, &value, sizeof(value), NULL);
     return value;
 }
-
-
