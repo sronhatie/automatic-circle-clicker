@@ -86,3 +86,10 @@ oh it broke only at the first part screenStack so thats good. not much changing.
 
 ### End Game
 so im just looking through the code adding comments and whatnot. and gosh my code is running on hopes and prayers, i dont check for fails basically everywhere.  
+OSU UPDATED and now it has some sort of tamper protection i have no idea. it just dies whenever a debugger detaches, i have no idea whats causing that nor how to fix that. ive been trying to find whats causing it for a few hours now  
+OH MY GOD. ITS ALL TOO GOOD TO BE TRUE. i used xperf to get the stack and uh yes i have no idea but magic. windows performance analyzer is too op. i can just see that when osu closes AuthNative.dll is present in creating .require_update and yes. like in the stack i found that AuthNative.dll gets called and afterwards it creates .require_update. aaaaaaaaa  
+wepl ive gone to the deep end, i have no idea whats going on nor what im doing. which is really sad cause all im doing is trusting the AI in this. its trying to decode whats going on. and like sure i could maybe try doing that myself but no way in hell am i going to do that. like its all madness. im not writing code id be reading random letters and numbers and trying to figure out whats real from fake.  
+but what its doing is trying to figure out the real code by runtime decrypting it. like th real code is doing its own decryption and we're just starting at it from the outside i have no idea im dying.  
+ah ive figured out whats going on. its far more insane than i realized. its actually virtualized obfuscation  
+argh im very dum i MADE A MISTAKE. i kept saying it was the debugger detaching that made osu quit. IT WAS NEVER THAT. like i thought it was that because .detach in windbg would make it quit. but it didnt quit once it attaches because it would just freeze the game. its prolly not even checking for a debugger. its most likely checking if its code is modified. which makes a lot more sense and argh a much better system.  
+welp i guess ill need to make a hook.  

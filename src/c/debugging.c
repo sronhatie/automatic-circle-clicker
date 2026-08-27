@@ -1,10 +1,12 @@
 #include <windows.h>
+#include <string.h>
+#include <stdlib.h>
 
-#include "asmFunctions.h"
+#include "asm_functions.h"
 #include "debugging.h"
 #include "signatures.h"
 
-uintptr_t captureBreakpointRCX(HANDLE hProcess, uintptr_t bpAddr, BYTE originalByte){
+uintptr_t capture_breakpoint_rcx(HANDLE process_handle, uintptr_t bpAddr, BYTE originalByte){
     DEBUG_EVENT debugEvent;
     uintptr_t capturedRCX = 0;
 
@@ -50,7 +52,7 @@ uintptr_t captureBreakpointRCX(HANDLE hProcess, uintptr_t bpAddr, BYTE originalB
                 if(exceptionAddress == bpAddr || int3Addr == bpAddr){
                     capturedRCX = (uintptr_t)ctx.Rcx;
                     // restores the original byte (previously was 0xCC)
-                    writeOneByte(hProcess, bpAddr, originalByte);
+                    writeOneByte(process_handle, bpAddr, originalByte);
 // TODO: check if it fails
 
                     ctx.Rip = bpAddr;
@@ -92,7 +94,7 @@ void closeDebugEventHandles(DEBUG_EVENT *debugEvent){
     }
 }
 
-uintptr_t findPatternInProcess(HANDLE hProcess, unsigned char *signature, char *mask){
+uintptr_t find_pattern_in_process(HANDLE process_handle, unsigned char *signature, char *mask){
 // TODO: check for bad inputs
     MEMORY_BASIC_INFORMATION mbi;
     uintptr_t address = 0;
@@ -105,7 +107,7 @@ uintptr_t findPatternInProcess(HANDLE hProcess, unsigned char *signature, char *
 
     // checks what memory region exists and fills mbi
     // the loop ends once it reaches the end (sizeof(mbi))
-    while((VirtualQueryEx(hProcess, (LPCVOID)address, &mbi, sizeof(mbi))) == sizeof(mbi)){
+    while((VirtualQueryEx(process_handle, (LPCVOID)address, &mbi, sizeof(mbi))) == sizeof(mbi)){
         // only scans memory that is usable and is executable
         if(mbi.State == MEM_COMMIT && isExecutablePage(mbi.Protect)){
             uintptr_t regionBase = (uintptr_t)mbi.BaseAddress;
@@ -120,7 +122,7 @@ uintptr_t findPatternInProcess(HANDLE hProcess, unsigned char *signature, char *
                 }
 
                 SIZE_T bytesRead = 0;
-                ReadProcessMemory(hProcess, (LPCVOID)(regionBase + regionOffset), buffer, toRead, &bytesRead);
+                ReadProcessMemory(process_handle, (LPCVOID)(regionBase + regionOffset), buffer, toRead, &bytesRead);
 // TODO: skip chunk if fails
 
                 // if our signatureLength was 5 and we read 4 bytes thats bad.
@@ -153,7 +155,7 @@ uintptr_t findPatternInProcess(HANDLE hProcess, unsigned char *signature, char *
     return 0;
 }
 
-int waitForInitialAttachBreakpoint(){ // i should change the name of this.
+int wait_for_initial_attach_breakpoint(){ // i should change the name of this.
    // this function is used to remove the breakpoint that windows sends to debuggers
 
     DEBUG_EVENT debugEvent;

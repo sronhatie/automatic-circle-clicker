@@ -1,11 +1,9 @@
-#ifndef MEMORY_H
-#define MEMORY_H
+#pragma once
 
 #include <windows.h>
+#include <stdint.h>
 
-uintptr_t readPtr(HANDLE hProcess, uintptr_t address);
-BYTE readByte(HANDLE hProcess, uintptr_t address);
-int readInt(HANDLE hProcess, uintptr_t address);
-double readDouble(HANDLE hProcess, uintptr_t address);
-
-#endif
+uintptr_t read_ptr(HANDLE process_handle, uintptr_t address);
+BYTE read_byte(HANDLE process_handle, uintptr_t address);
+int read_int(HANDLE process_handle, uintptr_t address);
+double read_double(HANDLE process_handle, uintptr_t address);

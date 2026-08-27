@@ -1,121 +1,121 @@
 #include "offsets.h"
 
-OsuOffsets osuOffsets = {
-    .osuGame = {
-        .screenStack = 0x600
+osu_offsets_t osu_offsets = {
+    .osu_game = {
+        .screen_stack = 0x610
     },
 
-    .screenStack = {
-        .screenList = 0x320
+    .screen_stack = {
+        .screen_list = 0x320
     },
 
     .list = {
         .array = 0x8,
         .count = 0x10,
-        .firstElement = 0x10,
-        .elementSize = 0x8
+        .first_element = 0x10,
+        .element_size = 0x8
     },
 
     .player = {
-        .drawableRuleset = 0x458,
-        .playingState = 0x3D0
+        .drawable_ruleset = 0x458,
+        .playing_state = 0x3D0
     },
 
-    .drawableRuleset = {
-        .playfieldLazy = 0x360
+    .drawable_ruleset = {
+        .playfield_lazy = 0x360
     },
 
     .lazy = {
-        .lazyValue = 0x18
+        .lazy_value = 0x18
     },
 
     .playfield = {
         .clock = 0x80,
-        .hitObjectContainerLazy = 0x320
+        .hit_object_container_lazy = 0x320
     },
 
     .clock = {
-        .frameStabilityContainer = 0x358
+        .frame_stability_container = 0x358
     },
 
-    .frameStabilityContainer = {
-        .currentTime = 0x30
+    .frame_stability_container = {
+        .current_time = 0x30
     },
 
-    .hitObjectContainer = {
-        .aliveDrawableMap = 0x310
+    .hit_object_container = {
+        .alive_drawable_map = 0x310
     },
 
-    .dictionaryWrapper = {
+    .dictionary_wrapper = {
         .dict = 0x8
     },
 
     .dictionary = {
         .entries = 0x10,
         .count = 0x38,
-        .freeCount = 0x44
+        .free_count = 0x44
     },
 
-    .managedArray = {
-        .firstElement = 0x10
+    .managed_array = {
+        .first_element = 0x10
     },
 
-    .dictionaryEntry = {
+    .dictionary_entry = {
         .size = 0x18,
         .key = 0x0,
         .value = 0x8,
-        .hashCode = 0x10,
+        .hash_code = 0x10,
         .next = 0x14
     },
 
-    .drawableOsuHitObject = {
+    .drawable_osu_hit_object = {
         .entry = 0x320,
-        .hitArea = 0x408
+        .hit_area = 0x408
     },
 
-    .drawableSlider = {
-        .sliderInputManager = 0x428
+    .drawable_slider = {
+        .slider_input_manager = 0x428
     },
 
-    .sliderInputManager = {
+    .slider_input_manager = {
         .slider = 0x208
     },
 
-    .hitObjectLifetimeEntry = {
-        .hitObject = 0x38,
+    .hit_object_lifetime_entry = {
+        .hit_object = 0x38,
         .result = 0x48,
-        .lifetimeEnd = 0x20
+        .lifetime_end = 0x20
     },
 
-    .judgementResult = {
+    .judgement_result = {
         .type = 0x20
     },
 
-    .hitObject = {
-        .startTimeBindable = 0x10,
-        .hitWindows = 0x20
+    .hit_object = {
+        .start_time_bindable = 0x10,
+        .hit_windows = 0x20
     },
 
     .slider = {
-        .headCircle = 0x100,
-        .tailCircle = 0x108
+        .head_circle = 0x100,
+        .tail_circle = 0x108
     },
 
     .bindable = {
         .value = 0x40
     },
 
-    .hitWindows = {
+    .hit_windows = {
         .great = 0x8,
         .ok = 0x10,
         .meh = 0x18
     },
 
-    .hitArea = {
-        .isHovered = 0x144
+    .hit_area = {
+        .is_hovered = 0x144
     },
 
-    .playingState = {
+    .playing_state = {
         .value = 0x40
     }
 };

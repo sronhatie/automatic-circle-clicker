@@ -2,9 +2,9 @@
 
 extern void testing();
 
-int main(){
-    //testing();
-    start();
+int main() {
+  //testing();
+  start();
 
-    return 0;
+  return 0;
 }

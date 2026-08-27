@@ -1,6 +1,3 @@
-#ifndef LOGIC_H
-#define LOGIC_H
+#pragma once
 
 void start();
-
-#endif

@@ -119,4 +119,5 @@ double return  - XMM0
 
 ### End Game
 After calling a WinAPI function, its best to use `GetLastError()` tells you why it failed, although not all WinAPI functions work with this function.  
-If future code depends on previous code, it's best to check if it's valid (Im talking about WinAPI functions)
+If future code depends on previous code, it's best to check if it's valid (Im talking about WinAPI functions)  
+There is a 5-byte relative jump (+-2GB from the target) and a 14-byte absolute jump. You can't override bytes, you have to override full functions, so the bytes could be more.  

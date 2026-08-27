@@ -1,5 +1,4 @@
-#ifndef HIT_RESULT_H
-#define HIT_RESULT_H
+#pragma once
 
 #define HIT_RESULT_NONE 0
 #define HIT_RESULT_MISS 1
@@ -20,6 +19,4 @@
 #define HIT_RESULT_SLIDER_TAIL_HIT 16
 #define HIT_RESULT_LEGACY_COMBO_INCREASE 99
 
-int hitResultIsHit(int result);
-
-#endif
+int hit_result_is_hit(int result);

@@ -1,7 +1,4 @@
-#ifndef SIGNATURES_H
-#define SIGNATURES_H
+#pragma once
 
-extern char updateAfterChildrenMask[];
-extern unsigned char updateAfterChildrenSignature[];
-
-#endif
+extern char update_after_children_mask[];
+extern unsigned char update_after_children_signature[];

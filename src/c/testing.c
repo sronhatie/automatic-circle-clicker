@@ -1,83 +1,130 @@
-#include <windows.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <windows.h>
 
-#include "osuChain.h"
-#include "offsets.h"
+#include "asm_functions.h"
 #include "memory.h"
-#include "asmFunctions.h"
+#include "offsets.h"
+#include "osu_chain.h"
 
-void testing(){
-    char *processName = "osu!.exe";
-    DWORD processID = findPID(processName);
-    if(!processID){
-        printf("osu not found\n");
-        return;
-    }
+void testing() {
+  char *process_name = "osu!.exe";
+  DWORD process_id = findPID(process_name);
 
-    HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, processID);
-    if(!hProcess){
-        printf("OpenProcess failed\n");
-        return;
-    }
+  if (!process_id) {
+    printf("osu not found\n");
+    return;
+  }
 
-    uintptr_t osuGamePtr = getOsuGamePtr(hProcess, processID);
-    printf("osuGamePtr: %p\n", (void*)osuGamePtr);
+  HANDLE process_handle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, process_id);
 
-    uintptr_t screenStack = readPtr(hProcess, osuGamePtr + osuOffsets.osuGame.screenStack);
-    printf("screenStack: %p\n", (void*)screenStack);
+  if (!process_handle) {
+    printf("OpenProcess failed\n");
+    return;
+  }
 
-    uintptr_t screenList = readPtr(hProcess, screenStack + osuOffsets.screenStack.screenList);
-    printf("screenList: %p\n", (void*)screenList);
+  uintptr_t osu_game_desktop_ptr =
+      get_osu_game_desktop_ptr(process_handle, process_id);
 
-    int screenCount = readInt(hProcess, screenList + osuOffsets.list.count);
-    printf("screenCount: %d\n", screenCount);
+  printf("osu_game_desktop_ptr: %p\n", (void *)osu_game_desktop_ptr);
 
-    uintptr_t screenArray = readPtr(hProcess, screenList + osuOffsets.list.array);
-    printf("screenArray: %p\n", (void*)screenArray);
+  uintptr_t screen_stack = read_ptr(
+      process_handle, osu_game_desktop_ptr + osu_offsets.osu_game.screen_stack);
 
-    uintptr_t currentScreenEntryAddress = screenArray + osuOffsets.list.firstElement + (uintptr_t)(screenCount - 1) * osuOffsets.list.elementSize;
-    printf("currentScreenEntryAddress: %p\n", (void*)currentScreenEntryAddress);
+  printf("screen_stack: %p\n", (void *)screen_stack);
 
-    uintptr_t playerPtr = readPtr(hProcess, currentScreenEntryAddress);
-    printf("playerPtr: %p\n", (void*)playerPtr);
+  uintptr_t screen_list = read_ptr(
+      process_handle, screen_stack + osu_offsets.screen_stack.screen_list);
 
-    uintptr_t playingState = readPtr(hProcess, playerPtr + osuOffsets.player.playingState);
-    printf("playingState ptr: %p\n", (void*)playingState);
+  printf("screen_list: %p\n", (void *)screen_list);
 
-    int playingStateValue = readInt(hProcess, playingState + osuOffsets.playingState.value);
-    printf("playingState value: %d\n", playingStateValue);
+  int screen_count =
+      read_int(process_handle, screen_list + osu_offsets.list.count);
 
-    uintptr_t drawableRuleset = readPtr(hProcess, playerPtr + osuOffsets.player.drawableRuleset);
-    printf("drawableRuleset: %p\n", (void*)drawableRuleset);
+  printf("screen_count: %d\n", screen_count);
 
-    uintptr_t lazyPlayfield = readPtr(hProcess, drawableRuleset + osuOffsets.drawableRuleset.playfieldLazy);
-    printf("lazyPlayfield: %p\n", (void*)lazyPlayfield);
+  uintptr_t screen_array =
+      read_ptr(process_handle, screen_list + osu_offsets.list.array);
 
-    uintptr_t playfieldPtr = readPtr(hProcess, lazyPlayfield + osuOffsets.lazy.lazyValue);
-    printf("playfieldPtr: %p\n", (void*)playfieldPtr);
+  printf("screen_array: %p\n", (void *)screen_array);
 
-    uintptr_t clock = readPtr(hProcess, playfieldPtr + osuOffsets.playfield.clock);
-    printf("clock: %p\n", (void*)clock);
+  uintptr_t current_screen_entry_address =
+      screen_array + osu_offsets.list.first_element +
+      (uintptr_t)(screen_count - 1) * osu_offsets.list.element_size;
 
-    uintptr_t framedClock = readPtr(hProcess, clock + osuOffsets.clock.frameStabilityContainer);
-    printf("framedClock: %p\n", (void*)framedClock);
+  printf("current_screen_entry_address: %p\n",
+         (void *)current_screen_entry_address);
 
-    double currentTime = readDouble(hProcess, framedClock + osuOffsets.frameStabilityContainer.currentTime);
-    printf("currentTime: %.3f\n", currentTime);
+  uintptr_t player_ptr = read_ptr(process_handle, current_screen_entry_address);
 
-    uintptr_t lazyHitObjectContainer = readPtr(hProcess, playfieldPtr + osuOffsets.playfield.hitObjectContainerLazy);
-    printf("lazyHitObjectContainer: %p\n", (void*)lazyHitObjectContainer);
+  printf("player_ptr: %p\n", (void *)player_ptr);
 
-    uintptr_t hitObjectContainer = readPtr(hProcess, lazyHitObjectContainer + osuOffsets.lazy.lazyValue);
-    printf("hitObjectContainer: %p\n", (void*)hitObjectContainer);
+  uintptr_t playing_state =
+      read_ptr(process_handle, player_ptr + osu_offsets.player.playing_state);
 
-    uintptr_t dict = readPtr(hProcess, hitObjectContainer + osuOffsets.hitObjectContainer.aliveDrawableMap);
-    printf("aliveDrawableMap/dict: %p\n", (void*)dict);
+  printf("playing_state ptr: %p\n", (void *)playing_state);
 
-    uintptr_t entries = readPtr(hProcess, dict + osuOffsets.dictionary.entries);
-    printf("entries: %p\n", (void*)entries);
+  int playing_state_value =
+      read_int(process_handle, playing_state + osu_offsets.playing_state.value);
 
-    int count = readInt(hProcess, dict + osuOffsets.dictionary.count);
-    printf("count: %d\n", count);
+  printf("playing_state value: %d\n", playing_state_value);
+
+  uintptr_t drawable_ruleset = read_ptr(
+      process_handle, player_ptr + osu_offsets.player.drawable_ruleset);
+
+  printf("drawable_ruleset: %p\n", (void *)drawable_ruleset);
+
+  uintptr_t lazy_playfield =
+      read_ptr(process_handle,
+               drawable_ruleset + osu_offsets.drawable_ruleset.playfield_lazy);
+
+  printf("lazy_playfield: %p\n", (void *)lazy_playfield);
+
+  uintptr_t playfield_ptr =
+      read_ptr(process_handle, lazy_playfield + osu_offsets.lazy.lazy_value);
+
+  printf("playfield_ptr: %p\n", (void *)playfield_ptr);
+
+  uintptr_t clock =
+      read_ptr(process_handle, playfield_ptr + osu_offsets.playfield.clock);
+
+  printf("clock: %p\n", (void *)clock);
+
+  uintptr_t framed_clock = read_ptr(
+      process_handle, clock + osu_offsets.clock.frame_stability_container);
+
+  printf("framed_clock: %p\n", (void *)framed_clock);
+
+  double current_time = read_double(
+      process_handle,
+      framed_clock + osu_offsets.frame_stability_container.current_time);
+
+  printf("current_time: %.3f\n", current_time);
+
+  uintptr_t lazy_hit_object_container =
+      read_ptr(process_handle,
+               playfield_ptr + osu_offsets.playfield.hit_object_container_lazy);
+
+  printf("lazy_hit_object_container: %p\n", (void *)lazy_hit_object_container);
+
+  uintptr_t hit_object_container = read_ptr(
+      process_handle, lazy_hit_object_container + osu_offsets.lazy.lazy_value);
+
+  printf("hit_object_container: %p\n", (void *)hit_object_container);
+
+  uintptr_t dictionary_ptr = read_ptr(
+      process_handle, hit_object_container +
+                          osu_offsets.hit_object_container.alive_drawable_map);
+
+  printf("alive_drawable_map/dictionary: %p\n", (void *)dictionary_ptr);
+
+  uintptr_t entries =
+      read_ptr(process_handle, dictionary_ptr + osu_offsets.dictionary.entries);
+
+  printf("entries: %p\n", (void *)entries);
+
+  int count =
+      read_int(process_handle, dictionary_ptr + osu_offsets.dictionary.count);
+
+  printf("count: %d\n", count);
 }
