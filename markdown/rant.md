@@ -93,3 +93,4 @@ but what its doing is trying to figure out the real code by runtime decrypting i
 ah ive figured out whats going on. its far more insane than i realized. its actually virtualized obfuscation  
 argh im very dum i MADE A MISTAKE. i kept saying it was the debugger detaching that made osu quit. IT WAS NEVER THAT. like i thought it was that because .detach in windbg would make it quit. but it didnt quit once it attaches because it would just freeze the game. its prolly not even checking for a debugger. its most likely checking if its code is modified. which makes a lot more sense and argh a much better system.  
 welp i guess ill need to make a hook.  
+gosh refactoring everything to use snake_case and also changing everything to use a global variable (osu_process) was time consuming, even with AI it took a lot of hours.  

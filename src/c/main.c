@@ -1,8 +1,8 @@
 #include "logic.h"
 
-extern void testing();
+extern void testing(void);
 
-int main() {
+int main(void) {
   //testing();
   start();
 

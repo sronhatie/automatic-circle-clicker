@@ -3,8 +3,8 @@
 #include <windows.h>
 #include <stdint.h>
 
-extern void mouseDown();
-extern void mouseUp();
+extern void mouseDown(void);
+extern void mouseUp(void);
 extern void moveMouse(int x, int y);
 extern DWORD findPID(char *process_name);
 extern int isExecutablePage(DWORD protect);

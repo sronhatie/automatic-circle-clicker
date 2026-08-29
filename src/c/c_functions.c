@@ -1,5 +1,6 @@
-#include <windows.h>
 #include <stdio.h>
+#include <windows.h>
+
 
 #include "c_functions.h"
 
@@ -9,7 +10,7 @@
 // function pointer type for dynamically loaded GetAsyncKeyState
 typedef SHORT(WINAPI *get_async_key_state_ptr)(int);
 
-int key_was_pressed() {
+int key_was_pressed(void) {
   int was_pressed = 0;
   static int previous_was_pressed = 0;
   // cashed so theyre resolved only once
@@ -23,8 +24,8 @@ int key_was_pressed() {
       return 0;
     }
 
-    p_get_async_key_state =
-        (get_async_key_state_ptr)GetProcAddress(user32_handle, "GetAsyncKeyState");
+    p_get_async_key_state = (get_async_key_state_ptr)GetProcAddress(
+        user32_handle, "GetAsyncKeyState");
     if (p_get_async_key_state == NULL) {
       printf("Failed to make pointer to getAsyncKeyState\n");
       return 0;
