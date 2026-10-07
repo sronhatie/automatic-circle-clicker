@@ -1,14 +1,19 @@
-C_DIR = src/c
-ASM_DIR = src/asm
 BUILD_DIR = build
 
-C_FILES = $(wildcard $(C_DIR)/*.c) $(wildcard $(C_DIR)/memory/*.c)
-ASM_FILES = $(wildcard $(ASM_DIR)/*.asm)
+FIND = C:/msys64/usr/bin/find.exe
 
-C_OBJ = $(patsubst $(C_DIR)/%.c,$(BUILD_DIR)/%.obj,$(C_FILES))
-ASM_OBJS = $(patsubst $(ASM_DIR)/%.asm,$(BUILD_DIR)/%.obj,$(ASM_FILES))
+C_FILES = $(shell $(FIND) src -type f -name "*.c")
+ASM_FILES = $(shell $(FIND) src -type f -name "*.asm")
+H_FILES = $(shell $(FIND) src -type f -name "*.h")
+INC_FILES = $(shell $(FIND) src -type f -name "*.inc")
 
-OBJS = $(C_OBJ) $(ASM_OBJS)
+C_OBJS = $(patsubst src/%.c,$(BUILD_DIR)/%.obj,$(C_FILES))
+ASM_OBJS = $(patsubst src/%.asm,$(BUILD_DIR)/%.obj,$(ASM_FILES))
+
+OBJS = $(C_OBJS) $(ASM_OBJS)
+
+INCLUDE_DIRS = $(sort $(dir $(H_FILES) $(INC_FILES)))
+INCLUDES = $(addprefix /I,$(INCLUDE_DIRS))
 
 # MAKE THE EXE FILE
 
@@ -17,19 +22,16 @@ main.exe: $(OBJS)
 	
 # GET ASM OBJECT FILES
 
-$(BUILD_DIR)/%.obj: $(ASM_DIR)/%.asm
-	ML64 /c /Fo$@ $<
+$(BUILD_DIR)/%.obj: src/%.asm
+	@mkdir -p "$(dir $(BUILD_DIR)/%.obj)"
+	ML64 /c $(INCLUDES) /Fo$(BUILD_DIR)/%.obj src/%.asm
 
 # GET C OBJECT FILES
 
-$(BUILD_DIR)/%.obj: $(C_DIR)/%.c | $(BUILD_DIR)
-	cl /c /Isrc/headers /Fo$@ $<
-
-# MAKE BUILD FOLDER IF IT DOESNT EXIST
-
-$(BUILD_DIR):
-	mkdir $(BUILD_DIR)
+$(BUILD_DIR)/%.obj: src/%.c
+	@mkdir -p "$(dir $(BUILD_DIR)/%.obj)"
+	cl /c $(INCLUDES) /Fo$(BUILD_DIR)/%.obj src/%.c
 
 clean:
-	del main.exe
-	rmdir /s /q $(BUILD_DIR)
+	rm -f main.exe
+	rm -rf $(BUILD_DIR)
