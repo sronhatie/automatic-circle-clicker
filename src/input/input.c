@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <windows.h>
 
-
-#include "c_functions.h"
+#include "input.h"
 
 #define KEY 'Q'
 #define KEY_DOWN_MASK 0x8000

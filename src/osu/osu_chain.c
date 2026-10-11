@@ -1,43 +1,10 @@
 #include <windows.h>
 
-#include "asm_functions.h"
-#include "debugging.h"
 #include "memory.h"
 #include "offsets.h"
 #include "osu_chain.h"
 #include "osu_process.h"
-#include "signatures.h"
-
-uintptr_t get_osu_game_desktop_ptr(void) {
-  uintptr_t update_after_children_addr = find_pattern_in_process(
-      osu_process.process_handle, update_after_children_signature,
-      update_after_children_mask);
-
-  BYTE original_byte = 0;
-
-  ReadProcessMemory(osu_process.process_handle,
-                    (LPCVOID)update_after_children_addr, &original_byte, 1,
-                    NULL);
-
-  DebugActiveProcess(osu_process.process_id);
-
-  // TODO: Check if this fails. It silently fails if another debugger
-  // is already attached to the process.
-  DebugSetProcessKillOnExit(FALSE);
-
-  // Removes the initial attach breakpoint (0xCC / int3).
-  wait_for_initial_attach_breakpoint();
-
-  writeOneByte(osu_process.process_handle, update_after_children_addr, 0xCC);
-
-  // RCX contains OsuGameDesktop* at UpdateAfterChildren.
-  uintptr_t osu_game_desktop_ptr = capture_breakpoint_rcx(
-      osu_process.process_handle, update_after_children_addr, original_byte);
-
-  DebugActiveProcessStop(osu_process.process_id);
-
-  return osu_game_desktop_ptr;
-}
+#include "hook.h"
 
 uintptr_t get_player_ptr(void) {
   uintptr_t screen_stack = read_ptr(osu_process.osu_game_desktop_ptr +

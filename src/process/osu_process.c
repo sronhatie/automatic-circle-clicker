@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "asm_functions.h"
 #include "osu_chain.h"
 #include "osu_process.h"
+#include "hook.h"
+
+extern DWORD findPID(char *process_name);
 
 osu_process_t osu_process = {0};
 

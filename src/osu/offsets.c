@@ -2,7 +2,7 @@
 
 osu_offsets_t osu_offsets = {
     .osu_game = {
-        .screen_stack = 0x610
+        .screen_stack = 0x620
     },
 
     .screen_stack = {
@@ -70,11 +70,11 @@ osu_offsets_t osu_offsets = {
 
     .drawable_osu_hit_object = {
         .entry = 0x320,
-        .hit_area = 0x408
+        .hit_area = 0x410
     },
 
     .drawable_slider = {
-        .slider_input_manager = 0x428
+        .slider_input_manager = 0x430
     },
 
     .slider_input_manager = {

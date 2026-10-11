@@ -2,10 +2,11 @@
 #include <stdio.h>
 #include <windows.h>
 
-#include "asm_functions.h"
 #include "hit_result.h"
+#include "input.h"
 #include "osu_chain.h"
 #include "relax_logic.h"
+
 
 #define EARLY_ACTION_MS 12.0
 #define PLAYING_STATE_PLAYING 2

@@ -2,7 +2,6 @@
 
 #include <stdint.h>
 
-uintptr_t get_osu_game_desktop_ptr(void);
 uintptr_t get_player_ptr(void);
 uintptr_t get_playfield_ptr(uintptr_t player_ptr);
 int get_playing_state_value(uintptr_t player_ptr);

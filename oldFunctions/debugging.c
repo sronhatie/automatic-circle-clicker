@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "asm_functions.h"
 #include "debugging.h"
 #include "signatures.h"
 

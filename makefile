@@ -23,14 +23,14 @@ main.exe: $(OBJS)
 # GET ASM OBJECT FILES
 
 $(BUILD_DIR)/%.obj: src/%.asm
-	@mkdir -p "$(dir $(BUILD_DIR)/%.obj)"
-	ML64 /c $(INCLUDES) /Fo$(BUILD_DIR)/%.obj src/%.asm
+	@mkdir -p "$(dir $@)"
+	ML64 /c $(INCLUDES) /Fo$@ $<
 
 # GET C OBJECT FILES
 
 $(BUILD_DIR)/%.obj: src/%.c
-	@mkdir -p "$(dir $(BUILD_DIR)/%.obj)"
-	cl /c $(INCLUDES) /Fo$(BUILD_DIR)/%.obj src/%.c
+	@mkdir -p "$(dir $@)"
+	cl /c $(INCLUDES) /Fo$@ $<
 
 clean:
 	rm -f main.exe
